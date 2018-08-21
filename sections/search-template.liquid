@@ -1,0 +1,287 @@
+{% comment %}
+** Search results - default view **
+- Template section
+- Uses blocks
+{% endcomment %}
+
+{% assign search_pagination = section.settings.pagination_limit %}
+
+
+<a name="pagecontent" id="pagecontent"></a>
+
+  <div class="clearfix breadcrumb-collection">
+    {% if section.settings.search_breadcrumb %}
+      <div class="eight columns breadcrumb_text" itemscope itemtype="http://schema.org/BreadcrumbList">
+        <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="item" class="breadcrumb_link"><span itemprop="name">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
+        <span class="breadcrumb-divider">/</span>
+        <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/search" itemprop="item" class="breadcrumb_link"><span itemprop="name">{{ 'general.search.title' | t }}</span></a></span>
+
+        {% if paginate.pages != 0 %}
+          <span class="breadcrumb-divider">/</span> {{ 'general.breadcrumbs.page' | t: current_page: paginate.current_page, pages: paginate.pages }}
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="section clearfix">
+    <div class="sixteen columns clearfix">
+      <h1>{{ 'general.search.title' | t }}</h1>
+      <div class="feature_divider"></div>
+    </div>
+  </div>
+
+  {% comment %}
+
+  <form action="/search" class="search_form"> <input type="hidden" name="type" value="product"> <span class="icon-search search-submit"></span> <input type="text" name="q" placeholder="Search" value="" autocapitalize="off" autocomplete="off" autocorrect="off" class="instant-search" style="color: {{settings.regular_color}}"></form>
+
+  <div class="bootstrap container">
+    <div class="row">
+      
+      {% comment %}
+      {% if settings['search_vendor_tags'] %}
+        {% assign tags_string = settings['search_vendor_tags'] | replace: ' ', '' %}
+        {% if tags_string != '' %}
+          {% assign tags = settings['search_vendor_tags'] | split: ',' %}
+          <div class="col-xs-12 col-sm-4 col-md-3 select-filter">
+            <select class="selectpicker show-tick show-menu-arrow tags" data-width="100%">
+              <option value="">Select Vendor</option>
+              {% for tag in tags %}
+              <option value='{{ tag }}'>{{tag | replace: '-', ' ' | replace: 'size ', ''| replace: 'gender age ', '' | capitalize}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+      {% endif %}
+      {% endcomment %}
+
+      {% if settings['search_type_tags'] %}
+        {% assign tags_string = settings['search_type_tags'] | replace: ' ', '' %}
+        {% if tags_string != '' %}
+          {% assign tags = settings['search_type_tags'] | split: ',' %}
+          <div class="col-xs-12 col-sm-4 col-md-3 select-filter">
+            <select class="selectpicker show-tick show-menu-arrow tags" data-width="100%">
+              <option value="">Select Type</option>
+              {% for tag in tags %}
+              <option value='{{ tag }}'>{{tag | replace: '-', ' ' | replace: 'size ', ''| replace: 'gender age ', '' | capitalize}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      {% if settings['search_department_tags'] %}
+        {% assign tags_string = settings['search_department_tags'] | replace: ' ', '' %}
+        {% if tags_string != '' %}
+          {% assign tags = settings['search_department_tags'] | split: ',' %}
+          <div class="col-xs-12 col-sm-4 col-md-3 select-filter">
+            <select class="selectpicker show-tick show-menu-arrow tags" data-width="100%">
+              <option value="">Select Department</option>
+              {% for tag in tags %}
+              <option value='{{ tag }}'>{{tag | replace: '-', ' ' | replace: 'size ', ''| replace: 'gender age ', '' | capitalize}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      {% if settings['search_size_tags'] %}
+        {% assign tags_string = settings['search_size_tags'] | replace: ' ', '' %}
+        {% if tags_string != '' %}
+          {% assign tags = settings['search_size_tags'] | split: ',' %}
+          <div class="col-xs-12 col-sm-4 col-md-3 select-filter">
+            <select class="selectpicker show-tick show-menu-arrow tags" data-width="100%">
+              <option value="">Select Size</option>
+              {% for tag in tags %}
+              <option value='{{ tag }}'>{{tag | replace: '-', ' ' | replace: 'size ', ''| replace: 'gender age ', '' | capitalize}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      {% if settings['search_color_tags'] %}
+        {% assign tags_string = settings['search_color_tags'] | replace: ' ', '' %}
+        {% if tags_string != '' %}
+          {% assign tags = settings['search_color_tags'] | split: ',' %}
+          <div class="col-xs-12 col-sm-4 col-md-3 select-filter">
+            <select class="selectpicker show-tick show-menu-arrow tags" data-width="100%">
+              <option value="">Select Color</option>
+              {% for tag in tags %}
+              <option value='{{ tag }}'>{{tag | replace: '-', ' ' | replace: 'size ', ''| replace: 'gender age ', '' | capitalize}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+      {% endif  %}
+
+      <div class="col-xs-12 col-sm-4 col-md-3 select-filter">
+        <select class="selectpicker show-tick show-menu-arrow sort" data-width="100%">
+          <optgroup label="Sort By:">
+            <option value="relevance">Relevance</option>
+            <option value="price-low">Price Low</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="bootstrap container">
+    <div class="search-results columns product-list">
+      <div class="row">
+        <p class="input-notice">Please type keyword in Search Box</p>
+      </div>
+    </div>
+  </div>
+  {% endcomment %}
+{% schema %}
+
+{
+  "name": "Search",
+  "class": "search-template-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "search_breadcrumb",
+      "label": "Show breadcrumb",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "label": "Products per row",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "pagination_limit",
+      "label": "Products per page",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Blog results"
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_author",
+      "label": "Show author"
+    },
+    {
+      "type": "checkbox",
+      "id": "read_more_link",
+      "label": "Show continue reading link for article excerpts",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "paragraph",
+      "content": "Create search sidebar by adding content blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle",
+      "label": "Toggle sidebar content",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter_by_collection",
+      "name": "Collection list",
+      "limit": 1
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "custom_menu_linklist",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "settings": [
+        {
+          "type": "page",
+          "id": "content_page",
+          "label": "Page"
+        }
+      ]
+    },
+    {
+      "type": "recently_viewed",
+      "name": "Recently viewed products",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "To test the recently viewed products, view your online store outside of the Editor and visit multiple product pages ([?](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/115008765228))"
+        },
+        {
+          "type": "text",
+          "id": "sidebar_rv_title",
+          "label": "Title",
+          "default": "Recently Viewed"
+        },
+        {
+          "type": "range",
+          "id": "sidebar_rv_per",
+          "label": "Products limit",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 3
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Text area can be used for special announcements or general information.</p>"
+        }
+      ]
+    },    
+    {
+      "type": "filter_by_type",
+      "name": "Type list",
+      "limit": 1
+    },
+    {
+      "type": "filter_by_vendor",
+      "name": "Vendor list",
+      "limit": 1
+    }
+  ]
+}
+
+{% endschema %}

@@ -1,0 +1,121 @@
+
+<div class="elastic_section">
+  <div class="bootstrap container">
+    <div class="row">
+      {% comment %}
+      
+      {% if settings['search_vendor_tags'] %}
+        {% assign tags_string = settings['search_vendor_tags'] | replace: ' ', '' %}
+        {% if tags_string != '' %}
+          {% assign tags = settings['search_vendor_tags'] | split: ',' %}
+          <div class="col-xs-12 col-sm-4 col-md-3 select-filter">
+            <select class="selectpicker show-tick show-menu-arrow tags" data-width="100%">
+              <option value="">Select Vendor</option>
+              {% for tag in tags %}
+              <option value='{{ tag }}'>{{tag | replace: '-', ' ' | replace: 'size ', ''| replace: 'gender age ', '' | capitalize}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+      {% endif %}
+      
+      {% endcomment %}
+
+      {% if settings['search_type_tags'] %}
+        {% include 'colors_list' %}
+
+        {% assign tags_string = settings['search_type_tags'] | replace: ' ', '' %}
+        {% if tags_string != '' %}
+          {% assign tags = settings['search_type_tags'] | split: ',' %}
+          <div class="col-xs-12 col-sm-4 col-md-3 select-filter">
+            <select class="selectpicker show-tick show-menu-arrow tags" data-width="100%">
+              <option value="">Select Type</option>
+              {% for tag in tags %}
+                {% assign a_color = '' %}
+                          
+                {% for color in colors_list %}
+                  {% if color contains tag %}
+                    {% assign color_arr = color | split: ':' %}
+                    {% assign a_color = color_arr[1] %}
+                    {% break %}
+                  {% endif %}
+                {% endfor %}
+                <option value='{{ tag }}' data-content="<span style='background-image: url({{ tag | handleize | downcase | append: '.png' | asset_img_url: '50x' }}); background-color: {% if a_color == '' or a_color == blank %}green{% else %}{{a_color}}{% endif %}; width: 50px; height: 50px;'></span>{{tag | replace: '-', ' ' | replace: 'size ', ''| replace: 'gender age ', '' | capitalize}}"><span style="background-color: {% if a_color == '' or a_color == blank %}green{% else %}{{a_color}}{% endif %}; width: 50px; height: 50px;"></span>{{tag | replace: '-', ' ' | replace: 'size ', ''| replace: 'gender age ', '' | capitalize}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      {% if settings['search_department_tags'] %}
+        {% assign tags_string = settings['search_department_tags'] | replace: ' ', '' %}
+        {% if tags_string != '' %}
+          {% assign tags = settings['search_department_tags'] | split: ',' %}
+          <div class="col-xs-12 col-sm-4 col-md-3 select-filter">
+            <select class="selectpicker show-tick show-menu-arrow tags" data-width="100%">
+              <option value="">Select Department</option>
+              {% for tag in tags %}
+              <option value='{{ tag }}'>{{tag | replace: '-', ' ' | replace: 'size ', ''| replace: 'gender age ', '' | capitalize}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      {% if settings['search_size_tags'] %}
+        {% assign tags_string = settings['search_size_tags'] | replace: ' ', '' %}
+        {% if tags_string != '' %}
+          {% assign tags = settings['search_size_tags'] | split: ',' %}
+          <div class="col-xs-12 col-sm-4 col-md-3 select-filter">
+            <select class="selectpicker show-tick show-menu-arrow tags" data-width="100%">
+              <option value="">Select Size</option>
+              {% for tag in tags %}
+              <option value='{{ tag }}'>{{tag | replace: '-', ' ' | replace: 'size ', ''| replace: 'gender age ', '' | capitalize}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      {% if settings['search_color_tags'] %}
+        {% assign tags_string = settings['search_color_tags'] | replace: ' ', '' %}
+        {% if tags_string != '' %}
+          {% assign tags = settings['search_color_tags'] | split: ',' %}
+          <div class="col-xs-12 col-sm-4 col-md-3 select-filter">
+            <select class="selectpicker show-tick show-menu-arrow tags" data-width="100%">
+              <option value="">Select Color</option>
+              {% for tag in tags %}
+              <option value='{{ tag }}'>{{tag | replace: '-', ' ' | replace: 'size ', ''| replace: 'gender age ', '' | capitalize}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endif %}
+      {% endif  %}
+
+      <div class="col-xs-12 col-sm-4 col-md-3 select-filter">
+        <select class="selectpicker show-tick show-menu-arrow sort" data-width="100%">
+          <optgroup label="Sort By:">
+            <option value="relevance">Relevance</option>
+            <option value="price-low">Price Low</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="bootstrap container">
+    <div class="search-results columns product-list">
+      <div class="row">
+        <p class="input-notice">Please type keyword in Search Box</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Elastic Search",
+  "class": "elasticsearch-section"
+}
+{% endschema %}

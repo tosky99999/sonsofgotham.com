@@ -1,0 +1,21 @@
+{% assign file_names = "_size_chart_fifthsun_10001001,_size_chart_trevco_bnd1,_size_chart_fifthsun_10001004,_size_chart_trevco_btw1,_size_chart_fifthsun_10001005,_size_chart_trevco_cube1,_size_chart_fifthsun_10001006,_size_chart_trevco_duv1,_size_chart_fifthsun_10001008,_size_chart_trevco_ha,_size_chart_fifthsun_10010004,_size_chart_trevco_hapc,_size_chart_fifthsun_10015001,_size_chart_trevco_js,_size_chart_fifthsun_10040006,_size_chart_trevco_jsbb,_size_chart_fifthsun_10042101,_size_chart_trevco_jspc,_size_chart_fifthsun_10056001,_size_chart_trevco_jspp,_size_chart_fifthsun_30001004,_size_chart_trevco_jtk,_size_chart_fifthsun_30001008,_size_chart_trevco_jv,_size_chart_fifthsun_40001001,_size_chart_trevco_kt,_size_chart_fifthsun_40001008,_size_chart_trevco_pch1,_size_chart_fifthsun_60001004,_size_chart_trevco_pch2,_size_chart_fifthsun_60001008,_size_chart_trevco_pjs,_size_chart_fifthsun_60002008,_size_chart_trevco_plo1,_size_chart_fifthsun_60012004,_size_chart_trevco_plo3,_size_chart_fifthsun_60012008,_size_chart_trevco_plo7,_size_chart_fifthsun_60077005,_size_chart_trevco_polo,_size_chart_fifthsun_60077010,_size_chart_trevco_psf,_size_chart_fifthsun_70001004,_size_chart_trevco_pt,_size_chart_fifthsun_70013004,_size_chart_trevco_sf,_size_chart_trevco_AFTH,_size_chart_trevco_shw1,_size_chart_trevco_AL,_size_chart_trevco_ss,_size_chart_trevco_ALPP,_size_chart_trevco_tk,_size_chart_trevco_AR,_size_chart_trevco_tkbb,_size_chart_trevco_AT,_size_chart_trevco_tkpp,_size_chart_trevco_ATBB,_size_chart_trevco_tote1,_size_chart_trevco_adv2,_size_chart_trevco_tt,_size_chart_trevco_as,_size_chart_trevco_wrk,_size_chart_trevco_atpc,_size_chart_trevco_wt,_size_chart_trevco_atpp,_size_chart_trevco_yfth,_size_chart_trevco_att,_size_chart_trevco_yt,_size_chart_trevco_attri,_size_chart_trevco_ytbb,_size_chart_trevco_av,_size_chart_trevco_ytpp,_size_chart_trevco_bkt1" | downcase %}
+
+{% assign arr_file_names = file_names | split: ',' %}
+<script type="text/javascript">
+	window.chart_data = {};
+	{% for file_name in arr_file_names %}
+		{% capture chart_data %}{% include file_name %}{% endcapture %}
+		{% unless chart_data contains 'Liquid error' %}
+			{% assign size_chart_table = size_chart_table | strip | newline_to_br | strip_newlines | split: '<br />' | join: ',' %}
+
+			window.chart_data['{{ file_name }}'] = {
+				tag: "{{ file_name }}",
+				heading: "{{ size_chart_heading }}",
+				image: {% if size_chart_image == blank %}null{% else %}"{{ size_chart_image | asset_url }}"{% endif %},
+				table: '{{ size_chart_table }}',
+				chart_nosize: {% if size_chart_nosize %}true{% else %}false{% endif %}
+			};
+		{% endunless %}
+	{% endfor %}
+</script>
+
