@@ -3961,7 +3961,7 @@ $(function() {
 			});
   	}
 	} else if ($('body').hasClass('page-shop-by-brands')) {
-		$('.vendor-logos__link').matchHeight();
+		{% comment %} $('.vendor-logos__link').matchHeight(); {% endcomment %}
 	}
 
 	searchPage.initialize();
