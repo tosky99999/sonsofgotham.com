@@ -158,11 +158,19 @@
                 {% assign vendor_handle = product.vendor | handleize %}
                 {% assign vendor_url = collections[vendor_handle].url %}
                 {% capture vendor_logo %}vendor-{{ vendor_handle }}.png{% endcapture %}
+                {% comment %}
                 <a href="{% if vendor_url != blank %}{{ vendor_url }}{% else %}/collections/vendors?q={{ vendor_handle | escape }}{% endif %}"
                    data-toggle="tooltip" data-placement="left"
                    title="View all {{ product.vendor }} products"
                    class="vendor product-single__vendor-logo"
                    style="background-image: url({{ vendor_logo | asset_url }});">{{ product.vendor }}</a>
+                {% endcomment %}
+                <a href="/collections/{{ vendor_handle | escape }}"
+                  data-toggle="tooltip" data-placement="left"
+                  title="View all {{ product.vendor }} products"
+                  class="vendor product-single__vendor-logo"
+                  style="background-image: url({{ vendor_logo | asset_url }});"
+                  >{{ product.vendor }}</a>
               {% endif %}
 
               <div class="sku-yotop">
@@ -195,7 +203,7 @@
               <div>
                 <div class="col-xs-12 col-sm-4 select-target" style="display: none;">
                   <span class="option_title">Department:</span>
-                  <select>
+                  <select style="margin-bottom: 30px">
                     <option value="men">Mens</option>
                     <option value="women">Womens</option>
                     <option value="kids">Kids</option>
@@ -205,7 +213,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-8 select-bodystyle" style="display: none;">
                   <span class="option_title">Body Style:</span>
-                  <select>
+                  <select style="margin-bottom: 30px">
                   </select>
                 </div>
               </div>
@@ -342,7 +350,8 @@
           </div>
         </div>
       </div>
-
+      {% include 'product-features' %}
+      
       {% if section.settings.display_related_products %}
         {% include 'related-products' %}
       {% endif %}

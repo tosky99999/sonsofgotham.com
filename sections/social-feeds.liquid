@@ -14,14 +14,12 @@
             {% if settings.instagram_link != blank %}
               <a href="{{ settings.instagram_link }}" target="_blank">
             {% endif %}
+            <img src="{{ 'instagram-logo.jpg' | asset_img_url: '32x' | replace: '.jpg', '@2x.progressive.jpg' }}" width="32" height="32" style="margin-right: 15px">
             {{ block.settings.instagram_title }}
             {% if settings.instagram_link != blank %}
               </a>
             {% endif %}
           </h2>
-          {% if block.settings.instagram_title != blank %}
-            <div class="feature_divider"></div>
-          {% endif %}
 
           {% if block.settings.instagram_client_id != blank %}
             <div id="instafeed" class="js-instafeed" data-client-id="{{ block.settings.instagram_client_id | strip }}" data-count="{{ block.settings.instagram_count }}"></div>

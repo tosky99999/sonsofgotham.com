@@ -168,7 +168,7 @@
 
             {% if cart.item_count > 0 %}
               <div class="featured-links">
-                <a href="{% if cart.items.first.product.collections != blank %}{{ cart.items.first.product.collections.last.url }}{% else %}/collections/all{% endif %}" class="secondary_button">{{ 'cart.general.continue_shopping_link_html' | t }}</a>
+                <a href="{% if cart.items.first.product.collections != blank %}{{ cart.items.first.product.collections.last.url }}{% else %}/collections/all{% endif %}" class="secondary_button cart_continue">{{ 'cart.general.continue_shopping_link_html' | t }}</a>
               </div>
             {% endif %}
           </div>

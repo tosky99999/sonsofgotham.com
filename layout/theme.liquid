@@ -15,12 +15,8 @@
       <link href="//fonts.googleapis.com/css?family=.|{% if settings.logo_font contains 'Google' %}{{ settings.logo_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold|{% endif %}{% if settings.headline_font contains 'Google' %}{{ settings.headline_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold|{% endif %}{% if settings.nav_font contains 'Google' %}{{ settings.nav_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold|{% endif %}{% if settings.slideshow_headline_font contains 'Google' %}{{ settings.slideshow_headline_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold|{% endif %}{% if settings.slideshow_subtitle_font contains 'Google' %}{{ settings.slideshow_subtitle_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold|{% endif %}{% if settings.regular_font contains 'Google' %}{{ settings.regular_font | replace: 'Google_', '' | replace: "'", "" }}:light,normal,bold{% endif %}" rel="stylesheet" type="text/css" />
     {% endif %}
 
-    {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
-    {{ 'bootstrap-theme.min.css' | asset_url | stylesheet_tag }}
     <!-- Stylesheets for Turbo 2.2.2 -->
     {{ 'styles.scss.css' | asset_url | stylesheet_tag }}
-    {{ 'custom.scss.css' | asset_url | stylesheet_tag }}
-    {{ 'bootstrap-select.min.css' | asset_url | stylesheet_tag }}
     {% comment %}
     {{ '//cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.css' | stylesheet_tag }}
     {% endcomment %}
@@ -36,7 +32,7 @@
       {% assign feature_image = true %}
     {% elsif template contains "product" %}
       {% assign feature_image = true %}
-      <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css">
+      {{ 'slick.min.css' | asset_url | stylesheet_tag }}
     {% elsif template contains "gallery" %}
       {% assign feature_image = true %}
     {% elsif template contains "banner" %}
@@ -91,10 +87,10 @@
     {% endif %}
     {{ content_for_header }}
 
-    {{ 'jquery.min.js' | asset_url | script_tag }}
-    <script type="text/javascript" src="{{ 'search.js' | asset_url }}" async></script>
+    
+    
   {% comment %}
-  
+  {{ 'jquery.min.js' | asset_url | script_tag }}
   <script type="text/javascript" src="{{ 'bootstrap.min.js' | asset_url }}" async></script>
   <script type="text/javascript" src="//cdn.polyfill.io/v2/polyfill.min.js" async></script>
   <script type="text/javascript" src="//cdn.jsdelivr.net/lodash/3.7.0/lodash.min.js" async></script>
@@ -141,6 +137,8 @@
 
     {% section 'elasticsearch-section' %}
 
+    {% include 'insta-feed' %}
+    
     {% unless settings.secondary_newsletter_banner == false %}
       {% section 'newsletter' %}
     {% endunless %}
@@ -164,7 +162,7 @@
     {% endif %}
 
     <script src="{{ 'app.js' | asset_url }}" defer></script>
-    
+
     {% include 'size-charts' %}
     {% include 'free-shipping' %}
 

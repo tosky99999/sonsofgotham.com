@@ -18,10 +18,12 @@
   {% if collections[col].all_products_count != 1 or collections[col].products.first.id != product.id %}
     {% assign skip_product = product %}
     {% assign products = collections[col].products %}
-    {% unless sidebar %} <div class="container"> {% endunless %}
-      <div class="related-products__title {% unless section.settings.related_products_style == 'slider' %}{% if sidebar %}twelve columns{% else %}sixteen columns{% endif %}{% endunless %}">
-        <h4 class="title center">{{ 'products.product.related_items' | t }}</h4>
-        <div class="feature_divider"></div>
+    {% unless sidebar %} <div class="bootstrap container" style="max-width: 1400px; width: initial;"> {% endunless %}
+      <div class="row">
+        <div class="related-products__title {% unless section.settings.related_products_style == 'slider' %}{% if sidebar %}twelve columns{% else %}col-xs-12 columns{% endif %}{% endunless %}">
+          <h4 class="title center" style="display: flex;align-items: center;justify-content: center;">YOU WILL &nbsp;<img src="{{ 'love.png' | asset_img_url: 'x47' }}">&nbsp;THESE TOO</h4>
+          <div class="feature_divider"></div>
+        </div>
       </div>
       <div class="clear"></div>
     {% unless sidebar %} </div> {% endunless %}

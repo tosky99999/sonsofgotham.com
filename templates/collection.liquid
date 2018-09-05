@@ -4,6 +4,7 @@
 
 <script type="text/javascript">
 	window.collection = {{ collection | json }};
+	window.collection_desc = "{{collection.description | escape }}";
 	{% if current_tags %}
     window.current_tags = '{{ current_tags | join: ','}}';
   {% endif %}

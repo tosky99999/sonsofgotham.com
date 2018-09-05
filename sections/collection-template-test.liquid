@@ -48,7 +48,7 @@
   {% paginate collection.products by section.settings.pagination_limit %}
     <div class="clearfix breadcrumb-collection">
       {% if section.settings.collection_breadcrumb %}
-        <div class="eight columns breadcrumb_text" itemscope itemtype="http://schema.org/BreadcrumbList">
+        <div class="breadcrumb_text" itemscope itemtype="http://schema.org/BreadcrumbList">
           <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="item" class="breadcrumb_link"><span itemprop="name">{{ 'general.breadcrumbs.home' | t }}</span></a></span>
           <span class="breadcrumb-divider">/</span>
           <span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}" title="{{ collection.title | escape }}" itemprop="item" class="breadcrumb_link"><span itemprop="name">{{ collection.title }}</span></a></span>
@@ -70,7 +70,13 @@
     <div class="row section clearfix">
       {% if section.settings.display_collection_title and section.settings.featured_collection_image == false %}
         <div class="col-xs-12 col-sm-6 columns">
-          <h1>{{ collection.title }}</h1>
+          {% assign vendor_handle = collection.title | handleize %}
+          
+          {% capture vendor_logo %}vendor-{{ vendor_handle }}.png{% endcapture %}
+          {% if collection.all_products_count > 0 and collection.products.first.vendor == collection.title %}
+            <img src="{{ vendor_logo | asset_img_url: 'x100'}}" height="40px" style="height: 35px;margin-right: 15px;margin-bottom: 15px">
+          {% endif %}
+          <h1 class="collection-title">{{ collection.title }}</h1>
         </div>
       {% endif %}
       <div class="col-xs-12 col-sm-6 columns section_select {% unless section.settings.display_collection_title and section.settings.featured_collection_image == false %}offset-by-eight{% endunless %}">
@@ -93,8 +99,10 @@
           {% endif %}
 
          {% if section.settings.collection_sort %}
-            <select class="sort_by" id="sort-by" data-default-sort="{{ collection.sort_by | default: collection.default_sort_by  }}">
+            <select class="sort_by" id="sort-by" data-default-sort="created-descending">
+              {% comment %}
               <option value="manual">{{ 'collections.sorting.featured' | t }}</option>
+              {% endcomment %}
               <option value="best-selling">{{ 'collections.sorting.best_selling' | t }}</option>
               <option value="title-ascending">{{ 'collections.sorting.az' | t }}</option>
               <option value="title-descending">{{ 'collections.sorting.za' | t }}</option>
@@ -107,7 +115,7 @@
         {% endif %}
       </div>
     </div>
-    <div class="sixteen columns">
+    <div class="col-xs-12 columns">
       <div class="feature_divider"></div>
     </div>
 
@@ -127,14 +135,7 @@
         <div class="sixteen columns collection-results">
       {% endif %}
         <div itemtype="http://schema.org/ItemList" class="row product-list collection-matrix clearfix">
-        {% if collection.description != blank %}
-          <div class="section clearfix collection_description">
-            {{ collection.description }}
-          </div>
-        {% endif %}
-
-        
-
+          
       {% if settings.pagination_type == 'basic_pagination' %}
         {% include 'pagination' with sidebar %}
       {% endif %}

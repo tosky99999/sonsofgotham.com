@@ -1,6 +1,6 @@
 <ul class="social_icons">
-  {% if settings.twitter_link != '' %}
-    <li><a href="{{ settings.twitter_link }}" title="{{ shop.name }} on Twitter" rel="me" target="_blank" class="icon-twitter"></a></li>
+  {% if settings.instagram_link != '' %}
+    <li><a href="{{ settings.instagram_link }}" title="{{ shop.name }} on Instagram" rel="me" target="_blank" class="icon-instagram"></a></li>
   {% endif %}
 
   {% if settings.facebook_link != '' %}
@@ -15,6 +15,10 @@
     <li><a href="{{ settings.youtube_link }}" title="{{ shop.name }} on YouTube" rel="me" target="_blank" class="icon-youtube"></a></li>
   {% endif %}
 
+  {% if settings.twitter_link != '' %}
+    <li><a href="{{ settings.twitter_link }}" title="{{ shop.name }} on Twitter" rel="me" target="_blank" class="icon-twitter"></a></li>
+  {% endif %}
+
   {% if settings.vimeo_link != '' %}
     <li><a href="{{ settings.vimeo_link }}" title="{{ shop.name }} on Vimeo" rel="me" target="_blank" class="icon-vimeo"></a></li>
   {% endif %}
@@ -25,10 +29,6 @@
 
   {% if settings.tumblr_link != '' %}
     <li><a href="{{ settings.tumblr_link }}" title="{{ shop.name }} on Tumblr" rel="me" target="_blank" class="icon-tumblr"></a></li>
-  {% endif %}
-
-  {% if settings.instagram_link != '' %}
-    <li><a href="{{ settings.instagram_link }}" title="{{ shop.name }} on Instagram" rel="me" target="_blank" class="icon-instagram"></a></li>
   {% endif %}
 
   {% if settings.snapchat_link != '' %}

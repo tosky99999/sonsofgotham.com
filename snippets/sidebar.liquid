@@ -161,16 +161,23 @@
             {% assign filter_name = block.settings.filter_name | replace: ' ', '_' | downcase | append: '__' %}
             {% if headline_length > 0 %}
               <div class="sidebar__collection-filter">
-
-                <h4 class="toggle"><i class="fa fa-caret-down"></i><i class="fa fa-caret-up"></i>{{ block.settings.filter_name }}</h4>
+                {% assign tag_name = block.settings.filter_name | downcase %}
+                <h4 class="{% if tag_name != 'size' and tag_name != 'color' and tag_name != 'department' %}toggle{% endif %}">
+                  {{ block.settings.filter_name }}
+                  {% if tag_name != 'size' and tag_name != 'color' and tag_name != 'department' %}
+                    <i class="fa fa-caret-right"></i><i class="fa fa-caret-up"></i>
+                  {% endif %}
+                </h4>
                 {% if block.settings.filter_name != blank and headline_length > 0 %}
                 {% assign block_title = block.settings.filter_name | downcase %}
-                <ul class="toggle_list {{ block.settings.filter_name | downcase | replace: ' ', '' }}" >
+                <ul class="toggle_list {{ block.settings.filter_name | downcase | replace: ' ', '' }}"  {% if tag_name == 'size' or tag_name == 'color' or tag_name == 'department' %}style="display:block;"{% endif %}>
                   <div class="filter-all-tags color-filter--{{ block.settings.enable_filter_swatches }}">
+                    {% if block_title == 'vendor' %}{% assign filter_tags = vendor_joined_tags | split: ',' %}{% endif %}
                     {% for tag in filter_tags %}
                       {% unless col_tags contains tag %}
                         {% continue %}
                       {% endunless %}
+
                       {% if block_title == 'vendor' %}
                         {% capture format_tag %},{{tag}},{% endcapture %}
                         {% unless vendor_tags contains format_tag %}

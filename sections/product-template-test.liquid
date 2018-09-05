@@ -129,10 +129,10 @@
           {% endif %}
 
            {% if section.settings.display_vendor %}
-             {% assign vendor_handle = product.vendor | handleize %}
+            {% assign vendor_handle = product.vendor | handleize %}
             {% assign vendor_url = collections[vendor_handle].url %}
             {% capture vendor_logo %}vendor-{{ vendor_handle }}.png{% endcapture %}
-            <a href="{% if vendor_url != blank %}{{ vendor_url }}{% else %}/collections/vendors?q={{ vendor_handle | escape }}{% endif %}"
+            <a href="/collections/{{ vendor_handle | escape }}"
                data-toggle="tooltip" data-placement="left"
                title="View all {{ product.vendor }} products"
                class="vendor product-single__vendor-logo"

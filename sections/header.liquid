@@ -117,9 +117,6 @@
         {% include 'social-icons' %}
       {% endif %}
       <ul class="menu left">
-        {% if section.settings.phone_number != blank %}
-          <li><a href="tel:+{{ section.settings.phone_number | replace: ' ', '' | replace: '+', '' | replace: '-', '' }}">{{ section.settings.phone_number }}</a></li>
-        {% endif %}
         {% if section.settings.top_bar_menu != blank %}
           {% for link in linklists[section.settings.top_bar_menu].links %}
             <li><a href="{{ link.url }}">{{ link.title }}</a></li>
@@ -238,14 +235,27 @@
       {% endif %}
 
       <ul class="menu right">
+        {% if section.settings.phone_number != blank %}
+          <li><a href="tel:+{{ section.settings.phone_number | replace: ' ', '' | replace: '+', '' | replace: '-', '' }}" class="topbar-nav__link topbar-nav__link__phone hvr-icon-buzz">{% include 'icon-phone' %} {{section.settings.phone_number}}</a></li>
+        {% endif %}
+        <li><a href="javascript:void(rewardsmgr_open());" class="topbar-nav__link topbar-nav__link__rewards hvr-icon-pop">{% include 'icon-rewards' %}Rewards</a></li>
+        <li><a href="/apps/tracktor/" class="topbar-nav__link topbar-nav__link__track_order hvr-icon-drop">{% include 'icon-track-order' %} Track Your Order</a></li>
+        <li class="topbar-nav__item small--hide"><a href="/products/gift-card" class="topbar-nav__link topbar-nav__link__gift-card hvr-icon-pulse-grow">{% include 'icon-gift' %} Gift Cards</a></li>
+        <li class="topbar-nav__item hide large-up--show small--hide"><a href="/blogs/news" class="topbar-nav__link topbar-nav__link__blog hvr-icon-float-away">{% include 'icon-file' %} News &amp; Reviews</a></li>
+        {% comment %}<li class="topbar-nav__item"><a href="/cart" class="topbar-nav__link topbar-nav__link__cart">{% include 'icon-cart' %} My Cart</a></li>{% endcomment %}
+        <li class="topbar-nav__item small--hide"><a href="/checkout" class="topbar-nav__link topbar-nav__link__checkout hvr-icon-wobble-vertical">{% include 'icon-check-circle-o' %} Checkout</a></li>
+        {% if shop.customer_accounts_enabled %}
+          {% if customer %}
+            <li class="topbar-nav__item"><a href="/account" class="topbar-nav__link topbar-nav__link__account hvr-icon-bob">{% include 'icon-user' %} My Account</a></li>
+            {% comment %}<li class="topbar-nav__item"><a id="" href="" class="topbar-nav__link topbar-nav__link__wishlist">{% include 'icon-heart-o' %} My Wishlist</a></li>{% endcomment %}
+          {% else %}
+            <li class="topbar-nav__item"><a href="/account/login" class="topbar-nav__link topbar-nav__link__account hvr-icon-bob">{% include 'icon-user' %} My Account</a></li>
+            {% comment %}<li class="topbar-nav__item"><a id="" href="" class="topbar-nav__link topbar-nav__link__wishlist">{% include 'icon-heart-o' %} My Wishlist</a></li>{% endcomment %}
+          {% endif %}
+        {% endif %}
         {% if settings.show_multiple_currencies %}
           <li>
             {% include 'currencies-switcher' %}
-          </li>
-        {% endif %}
-        {% if shop.customer_accounts_enabled %}
-          <li>
-            <a href="/account" class="icon-user" title="{{ 'layout.customer.my_account' | t }} {% if customer %}({{ customer.email }}){% endif %}"> <span>{% if customer %}{{ 'layout.customer.my_account' | t }}{% else %}{{ 'layout.customer.log_in' | t }}{% endif %}</span></a>
           </li>
         {% endif %}
       </ul>

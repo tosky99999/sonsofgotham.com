@@ -1,0 +1,33 @@
+{% assign excluded_vendors = '' %}
+{% comment %}
+<script type="text/javascript">
+  window.vendors = {{ shop.vendors | json }};
+</script>
+{% endcomment %}
+
+<div class="bootstrap container" id="brands-page">
+  <h1 class="small--text-center">{{ page.title }}</h1>
+  {% for vendor in shop.vendors %}
+    {% comment %}
+    {% if forloop.index0 == 60 %}{% break %}{% endif %}
+    {% endcomment %}
+    {% assign vendor_handle = vendor | handleize %}
+    {% unless excluded_vendors contains vendor_handle %}
+      {% capture vendor_logo %}vendor-{{ vendor_handle }}.png{% endcapture %}
+      <div class="col-xs-6 col-sm-2">
+        {% comment %}
+        <a href="/collections/vendors?q={{ vendor_handle | escape }}" class="vendor-logos__link">
+        {% endcomment %}
+        <a href="/collections/{{ vendor_handle | escape }}" class="vendor-logos__link" data-toggle="tooltip" data-placement="top" data-original-title="View all {{vendor}} products">
+          <img src="{{ vendor_logo | asset_img_url: '120x' }}" alt="" class="vendor-logos__image lazyload transition-in primary" data-src="{{ vendor_logo | asset_img_url: '240x', scale: 2 }}">
+        </a>
+      </div>
+    {% endunless %}
+  {% endfor %}
+  {% comment %}
+  <div id="loader">
+    <img src="{{ 'ajax-loader.gif' | asset_img_url }}">
+    LOADING...
+  </div>
+  {% endcomment %}
+</div>

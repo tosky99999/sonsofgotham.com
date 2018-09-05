@@ -3,16 +3,16 @@
 - Draggable section
 {% endcomment %}
 
+{% if section.settings.title != blank %}
+  <div class="featured-blog-title">
+    <h2 class="title center blog">
+      <a href="{{ blogs[section.settings.blog_widget_select].url }}">{{ section.settings.title | escape }}</a>
+    </h2>
+  </div>
+{% endif %}
+
 <div class="container">
-  <div class="section clearfix homepage_content">
-    {% if section.settings.title != blank %}
-      <div class="sixteen columns">
-        <h2 class="title center blog">
-          <a href="{{ blogs[section.settings.blog_widget_select].url }}">{{ section.settings.title | escape }}</a>
-        </h2>
-        <div class="feature_divider"></div>
-      </div>
-    {% endif %}
+  <div class="section clearfix homepage_content text-center">
     {% if section.settings.blog_widget_select != blank %}
       {% for article in blogs[section.settings.blog_widget_select].articles limit: section.settings.home_page_articles %}
         <div class="{% if section.settings.home_page_articles == 2 %}eight columns{% elsif section.settings.home_page_articles == 3 %}one-third column{% else %}four columns{% endif %} article">
@@ -35,9 +35,6 @@
             </a>
           {% endif %}
 
-          <h3 class="sub_title">
-            <a href="{{ article.url }}">{{ article.title }}</a>
-          </h3>
           <p class="blog_meta">
             {% if section.settings.blog_author %}
               <span>{{ 'blogs.article.by_author' | t: author: article.author }}</span>
@@ -60,6 +57,10 @@
             {% endif %}
           </p>
 
+          <h3 class="sub_title">
+            <a href="{{ article.url }}">{{ article.title }}</a>
+          </h3>
+
           {% if section.settings.blog_tags %}
             <div class="blog_meta tags">
               {% for tag in article.tags %}
@@ -81,9 +82,6 @@
         <div class="{% if section.settings.home_page_articles == 2 %}eight columns{% elsif section.settings.home_page_articles == 3 %}one-third column{% else %}four columns{% endif %} article">
           {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
 
-          <h3 class="sub_title">
-            <a href="#">{{ 'homepage.onboarding.blogpost_title' | t }}</a>
-          </h3>
           <p class="blog_meta">
             {% if section.settings.blog_author %}
               <span>{{ 'homepage.onboarding.blog_author' | t: author: article.author }}</span>
@@ -105,6 +103,9 @@
               {% endif %}
             {% endif %}
           </p>
+          <h3 class="sub_title">
+            <a href="#">{{ 'homepage.onboarding.blogpost_title' | t }}</a>
+          </h3>
 
           {% if section.settings.blog_tags %}
             <div class="blog_meta tags">
