@@ -1,0 +1,23 @@
+// Body background
+body.index {
+  background: #fff url({{ 'bg-logos.png' | asset_url }});
+}
+
+// Rich text and image gets a shadow
+.featured-content-section {
+  position: relative;
+  background-color: #fff;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: 0px;
+    z-index: -1;
+    display: block;
+    width: 80%;
+    height: 50%;
+    border-radius: 100%;
+    box-shadow: 0 0 40px rgba(0,0,0,0.8);
+  }
+}
