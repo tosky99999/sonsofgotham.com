@@ -20,7 +20,7 @@
   {% endif %}
 {% endfor %}
 
-<div class="swatch clearfix" data-option-index="{{ option_index }}">
+<div class="swatch clearfix {{ swatch | downcase }}" data-option-index="{{ option_index }}">
   <div class="option_title">{{ swatch }}</div>
   {% assign values = '' %}
   {% for variant in product.variants %}
@@ -37,12 +37,10 @@
         {% endif %}
         {% if is_color %}
           <label for="swatch-{{ option_index }}-{{ value | handle }}-{{ product.id }}" style="background-color: {{ value | split: ' ' | last | handle }};">
-            <span class="crossed-out"></span>
           </label>
         {% else %}
           <label for="swatch-{{ option_index }}-{{ value | handle }}-{{ product.id }}">
             {{ value }}
-            <span class="crossed-out"></span>
           </label>
         {% endif %}
       </div>

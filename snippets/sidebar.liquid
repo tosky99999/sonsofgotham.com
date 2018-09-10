@@ -187,16 +187,17 @@
 
                       {% if block.settings.enable_filter_swatches %}
                         {% assign a_color = '' %}
-                        
+                        {% assign color_name = '' %}
                         {% for color in colors_list %}
                           {% if color contains tag %}
                             {% assign color_arr = color | split: ':' %}
+                            {% assign color_name = color_arr[0] | replace: 'color-', '' | replace: '-', ' ' | camelcase %}
                             {% assign a_color = color_arr[1] %}
                             {% break %}
                           {% endif %}
                         {% endfor %}
                         <li>
-                          <label data-option-filter>
+                          <label data-option-filter data-toggle="tooltip" data-placement="center" title="{{color_name}}">
                             <input type="checkbox" value="{{tag}}" name="{{filter_name}}{{tag}}" id="{{filter_name}}{{tag}}" class="styled-checkbox" style="background-image: url({{ tag | handleize | downcase | append: '.png' | asset_img_url: '50x' }}); background-color: {% if a_color == '' or a_color == blank %}green{% else %}{{a_color}}{% endif %}">
                           </label>
                         </li>

@@ -21,7 +21,11 @@
     {% unless sidebar %} <div class="bootstrap container" style="max-width: 1400px; width: initial;"> {% endunless %}
       <div class="row">
         <div class="related-products__title {% unless section.settings.related_products_style == 'slider' %}{% if sidebar %}twelve columns{% else %}col-xs-12 columns{% endif %}{% endunless %}">
-          <h4 class="title center" style="display: flex;align-items: center;justify-content: center;">YOU WILL &nbsp;<img src="{{ 'love.png' | asset_img_url: 'x47' }}">&nbsp;THESE TOO</h4>
+          <h4 class="title center">
+            <span style="display: inline-flex;align-items: center;justify-content: center;">YOU WILL &nbsp;<img src="{{ 'love.png' | asset_img_url: 'x47' }}">&nbsp;THESE TOO</span>
+            <button data-dir="prev"><div class='prev-arrow'></div></button>
+            <button data-dir="next"><div class='next-arrow'></div></button>
+          </h4>
           <div class="feature_divider"></div>
         </div>
       </div>

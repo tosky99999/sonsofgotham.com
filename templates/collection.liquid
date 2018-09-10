@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
 	window.collection = {{ collection | json }};
-	window.collection_desc = "{{collection.description | escape }}";
+	window.collection_desc = "{{collection.description | strip_newlines | escape }}";
 	{% if current_tags %}
     window.current_tags = '{{ current_tags | join: ','}}';
   {% endif %}

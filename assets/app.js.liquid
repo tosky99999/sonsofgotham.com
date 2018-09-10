@@ -1025,6 +1025,13 @@ var videoSection = {
   }
 }
 
+var productFeature = {
+	init: function() {
+		$('.product-features .each').matchHeight();
+		$('#feature-rewards').mouseenter(function() {$('#feature-rewards').animateCss('zoomIn');});
+	}
+}
+
 var cart = {
   init: function(){
     if ($('#cart_form .tos_agree').length) {
@@ -1157,7 +1164,7 @@ selectCallback = function(variant, selector) {
   {% endif %}
 };
 
-var $main = $('.shopify-section, .yotpo.yotpo-main-widget, .main.content').not(".header-section, .newsletter-section:eq(1), .footer-section, .image-with-text-overlay-section.under-menu:eq(0)"), $elastic_section = $('.elasticsearch-section'), $price_range = $("#price_range"), $pagination = $('.search-pagination'), $pickers = $('.elasticsearch-section .select-filter'), $selectors = $('.elasticsearch-section select'), $sort = $('.selectpicker.sort'), $vendors = $('.selectpicker.vendors'), $types = $('.selectpicker.types'), $stock = $('.selectpicker.stock'), $notice = $('.search-results .row'), $search_results = $('.search-results'), $search_form = $('form[action="/search"]'), $search_box, $autocomplete, $autocomplete_result = $('.search-autocomplete'), marginTop = 0;
+var $main = $('.shopify-section, .yotpo.yotpo-main-widget, .main.content, .brands, .brands-heading').not(".header-section, .newsletter-section:eq(1), .footer-section, .image-with-text-overlay-section.under-menu:eq(0)"), $elastic_section = $('.elasticsearch-section'), $price_range = $("#price_range"), $pagination = $('.search-pagination'), $pickers = $('.elasticsearch-section .select-filter'), $selectors = $('.elasticsearch-section select'), $sort = $('.selectpicker.sort'), $vendors = $('.selectpicker.vendors'), $types = $('.selectpicker.types'), $stock = $('.selectpicker.stock'), $notice = $('.search-results .row'), $search_results = $('.search-results'), $search_form = $('form[action="/search"]'), $search_box, $autocomplete, $autocomplete_result = $('.search-autocomplete'), marginTop = 0;
 
 var searchPage = {
 	initialize: function() {
@@ -1314,13 +1321,13 @@ var searchPage = {
 			var align_height_value = (product['image1']['width'] >= product['image1']['height'] ? 'width: 100%; height: auto;' : 'width: 100%;');
 			html += '<div class="image__container" style=" max-width: ' + maxWidth + 'px; ">';
 
-			var image1 = (product['image1'] ? product['image1']['src'].replace(/\.(?=[^.]*$)/, "_x500.") : no_image.replace(/\.(?=[^.]*$)/, "_x500."));
-			html += '<img src="' + image1 + '" alt="' + product['image1']['alt'] + '" class="lazyload {{ settings.image_loading_style }}" style="' + align_height_value + ' max-width: ' + product['image1']['width'] + 'px;" data-sizes="auto" data-src="' + image1 + '" />';
+			var image1 = (product['image1'] ? product['image1']['src'].replace(/\.(?=[^.]*$)/, "_x400.") : no_image.replace(/\.(?=[^.]*$)/, "_x400."));
+			html += '<img src="' + image1 + '" alt="' + product['image1']['alt'] + '" class="lazyload {{ settings.image_loading_style }}" style="' + align_height_value + ' max-width: ' + product['image1']['width'] + 'px;" data-sizes="auto" srcset="' + image1 + ' 1x, ' + image1.replace(/\.(?=[^.]*$)/, "@2x.") + ' 2x" />';
 			html += '</div>';
 			if (secondary_enable) {
-				var image2 = (product['image2'] ? product['image2']['src'].replace(/\.(?=[^.]*$)/, "_x500.") : image1);
+				var image2 = (product['image2'] ? product['image2']['src'].replace(/\.(?=[^.]*$)/, "_x400.") : image1);
 				html += '<div class="image__container" style="max-width: ' + (product['image2'] ? product['image2']['width'] : product['image1']['width']) + 'px">';
-				html += '<img src="' + image2 + '" class="secondary lazyload" alt="' + (product['image2'] ? product['image2']['alt'] : product['image1']['alt']) + '" />';
+				html += '<img src="' + image2 + '" class="secondary lazyload" alt="' + (product['image2'] ? product['image2']['alt'] : product['image1']['alt']) + '" srcset="' + image2 + ' 1x, ' + image2.replace(/\.(?=[^.]*$)/, "@2x.") + ' 2x" />';
         html += '</div>';
 			}
 			html += '</a>';
@@ -1329,7 +1336,7 @@ var searchPage = {
  			html += '<div class="thumbnail-overlay">';
  			html += '<a href="/products/' + product['handle'] + '" itemprop="url" class="hidden-product-link">' + product['title'] + '</a>';
  			html += '<div class="info">';
- 			html += '<div class="product-details"><span class="title" itemprop="name">' + product['title'] + '</span><span class="price "><small><em>from</em></small><span class="money"> $' + product['price'].toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '</span></span></div>';
+ 			html += '<div class="product-details"><span class="title" itemprop="name">' + product['title'] + '</span><span class="price "><small><em>from</em></small><span class="money"> $' + product['price'].toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '</span></span><span class="more_styles">More Styles Available ></span></div>';
  			html += '</div>';
  			html += '</div>';
  			html += '<div class="banner_holder"></div>';
@@ -1602,11 +1609,12 @@ var collectionPage = {
 			var align_height_value = (maxWidth >= maxHeight ? 'width: 100%; height: auto;' : 'width: 100%;');
 			var image1 = (product['image'] != null ? product['image']['src'].replace(/\.(?=[^.]*$)/, "_x400.") : no_image.replace(/\.(?=[^.]*$)/, "_x400."));
 			html += '<div class="image__container" style=" max-width: ' + maxWidth + 'px; ">';
-			html += '<img src="' + image1 + '" alt="' + product['title'] + '" class="lazyload {{ settings.image_loading_style }}" style="' + align_height_value + ' max-width: ' + maxWidth + 'px;" data-sizes="auto" data-src="' + image1 + '" />';
+			html += '<img src="' + image1 + '" alt="' + product['title'] + '" class="lazyload {{ settings.image_loading_style }}" style="' + align_height_value + ' max-width: ' + maxWidth + 'px;" data-sizes="auto" srcset="' + image1 + ' 1x, ' + image1.replace(/\.(?=[^.]*$)/, "@2x.") + ' 2x" />';
 			html += '</div>';
 			if (secondary_enable) {
 				html += '<div class="image__container" style="max-width: ' + (product['images'].length > 1 ? product['images'][0]['width'] : maxWidth) + 'px">';
-				html += '<img src="' + (product['images'].length > 1 ? product['images'][1]['src'].replace(/\.(?=[^.]*$)/, "_x400.") : image1) + '" class="secondary lazyload" alt="' + product['title'] + '" />';
+				var image2 = (product['images'].length > 1 ? product['images'][1]['src'].replace(/\.(?=[^.]*$)/, "_x400.") : image1);
+				html += '<img src="' + image2 + '" class="secondary lazyload" alt="' + product['title'] + '" srcset="' + image2 + ' 1x, ' + image2.replace(/\.(?=[^.]*$)/, "@2x.") + ' 2x" />';
         html += '</div>';
 			}
 			html += '</a>';
@@ -1615,7 +1623,7 @@ var collectionPage = {
  			html += '<div class="thumbnail-overlay">';
  			html += '<a href="/products/' + product['handle'] + '" itemprop="url" class="hidden-product-link">' + product['title'] + '</a>';
  			html += '<div class="info">';
- 			html += '<div class="product-details"><span class="title" itemprop="name">' + product['title'] + '</span><span class="price "><small style="margin-right: 4px"><em>from</em></small> <span class="money">$' + (product['variants'].length > 0 ? product['variants'][0]['price'] : '0.00') + '</span></span></div>';
+ 			html += '<div class="product-details"><span class="title" itemprop="name">' + product['title'] + '</span><span class="price "><small style="margin-right: 4px"><em>from</em></small> <span class="money">$' + (product['variants'].length > 0 ? product['variants'][0]['price'] : '0.00') + '</span></span><span class="more_styles">More Styles Available ></span></div>';
  			html += '</div>';
  			html += '</div>';
  			html += '<div class="banner_holder"></div>';
@@ -2291,7 +2299,7 @@ var productPage = {
  			html += '<div class="thumbnail-overlay">';
  			html += '<a href="/products/' + product['handle'] + '" itemprop="url" class="hidden-product-link">' + product['title'] + '</a>';
  			html += '<div class="info">';
- 			html += '<div class="product-details"><span class="title" itemprop="name">' + product['title'] + '</span><span class="price "><small><em>from</em></small><span class="money"> $' + price + '</span></span></div>';
+ 			html += '<div class="product-details"><span class="title" itemprop="name">' + product['title'] + '</span><span class="price "><small><em>from</em></small><span class="money"> $' + price + '</span></span><span class="more_styles">More Styles Available ></span></div>';
  			html += '</div>';
  			html += '</div>';
  			html += '<div class="banner_holder"></div>';
@@ -2320,6 +2328,38 @@ var productPage = {
 			$productWrap.outerHeight($productWrap.outerWidth());
 			$productWrap.css("overflow", "hidden");
 			$productThumb.matchHeight();
+		});
+		$('.related-results').slick({
+		  infinite: false,
+		  slidesToShow: 4,
+		  slidesToScroll: 4,
+		  arrows: false,
+		  responsive: [{
+		      breakpoint: 1024,
+		      settings: {
+		        slidesToShow: 4,
+					  slidesToScroll: 4
+		      }
+		    }, {
+		      breakpoint: 700,
+		      settings: {
+		        slidesToShow: 2,
+					  slidesToScroll: 2
+		      }
+		    }, {
+		      breakpoint: 450,
+		      settings: {
+		        slidesToShow: 1,
+					  slidesToScroll: 1
+		      }
+		    }]
+		});
+
+		$('button[data-dir="prev"]').on('click', function() {
+			$('.related-results').slick('slickPrev');
+		});
+		$('button[data-dir="next"]').on('click', function() {
+			$('.related-results').slick('slickNext');
 		});
   },
   relatedProducts: function(){
@@ -2396,6 +2436,7 @@ var productPage = {
   popfunkFeature: function() {
     if (window.testProducts != undefined && window.testProducts.length > 0) {
       var $bodySelect = $('.select-bodystyle select');
+      var $personSelect = $('.select-target select');
       var htmlBodySelect = '';
       var num_codes = 0;
       for (var i = 0; i < window.testProducts.length; i++) {
@@ -2423,8 +2464,8 @@ var productPage = {
 		    	$('.each[data-id="' + product.id + '"]').addClass('active');
 
 		    	$('ul.tabs > li > a.active').removeClass('active');
-		    	var tabId = $( $('.each[data-id="' + product.id + '"]').parents('.person')[0] ).attr('id');
-		    	
+		    	// var tabId = $( $('.each[data-id="' + product.id + '"]').parents('.person')[0] ).attr('id');
+		    	var tabId = $personSelect.val();
 		    	$('ul.tabs a[href="#' + tabId + '"]').addClass('active');
 	        $('.products').find('#' + tabId).show().css({'display': 'block'}).addClass('active').siblings().hide().removeClass('active');
 
@@ -2484,7 +2525,6 @@ var productPage = {
     $('.yotpo.yotpo-main-widget').attr('data-product-id', product.id);
 
     /*----------  Product Gallery  ----------*/
-    
     template += '<div class="product_gallery product-' + product.id + '-gallery ' + multi_single_image + slideshow_button_style +'" data-zoom="' + productSettings.activate_zoom + '" data-autoplay="' + productSettings.activate_autoplay + '">';
     
     for (var i = 0; i < product.images.length; i++) {
@@ -3683,7 +3723,7 @@ var utils = {
       if(contentLocation.charAt(0)=="#") {
         $('ul.tabs > li > a.active').removeClass('active');
         $(this).addClass('active');
-        $('.products').find(contentLocation).show().css({'display': 'block'}).addClass('active').siblings().hide().removeClass('active');
+        $('.products, .featured-tabs-section').find(contentLocation).show().css({'display': 'block'}).addClass('active').siblings().hide().removeClass('active');
       }
     });
   },
@@ -3841,6 +3881,7 @@ $(function() {
   featuredCollectionSection.init();
   collectionSidebarFilter.init();
   cart.init();
+  productFeature.init();
 
   productPage.initializeQuantityBox();
   if ($('body').hasClass('product') || $('body').hasClass('product-test')) {
@@ -3852,7 +3893,7 @@ $(function() {
   		$.ajax({
 				method: "GET",
 				url: "https://search.sonsofgotham.com/products",
-				data: { design_code: design_code, vendor: vendor }
+				data: { design_code: design_code, vendor: vendor, per_page: 12 }
 			})
 			.done(function( result ) {
 				console.log(result);
@@ -3960,10 +4001,71 @@ $(function() {
 				}
 			});
   	}
-	} else if ($('body').hasClass('page-shop-by-brands')) {
-		{% comment %} $('.vendor-logos__link').matchHeight(); {% endcomment %}
-	}
+	} else if ($('body').hasClass('index') || $('body').hasClass('blog')) {
+		$('.article h3.sub_title').matchHeight();
+		$('.article h2').matchHeight();
+		$('.article .excerpt').matchHeight();
 
+		$(".brands-slider").slick({
+		  infinite: false,
+		  slidesToShow: 10,
+      slidesToScroll: 10,
+      prevArrow: "<div class='prev-arrow'></div>",
+    	nextArrow	: "<div class='next-arrow'></div>",
+		  responsive: [{
+		      breakpoint: 1200,
+		      settings: {
+		        slidesToShow: 8,
+		        slidesToScroll: 8
+		      }
+		    },
+		  	{
+		      breakpoint: 1024,
+		      settings: {
+		        slidesToShow: 8,
+		        slidesToScroll: 8
+		      }
+		    },
+		  	{
+		      breakpoint: 900,
+		      settings: {
+		        slidesToShow: 6,
+		        slidesToScroll: 6
+		      }
+		    }, {
+
+		      breakpoint: 768,
+		      settings: {
+		        slidesToShow: 4,
+		        slidesToScroll: 4
+		      }
+
+		    }, {
+
+		      breakpoint: 600,
+		      settings: {
+		        slidesToShow: 4,
+		        slidesToScroll: 4
+		      }
+
+		    }, {
+
+		      breakpoint: 450,
+		      settings: {
+		        slidesToShow: 3,
+		        slidesToScroll: 3
+		      }
+
+		    }, {
+		      breakpoint: 350,
+		      settings: {
+		        slidesToShow: 2,
+		        slidesToScroll: 2
+		      }
+		    }]
+		});
+	}
+	
 	searchPage.initialize();
 
 	recentlyViewed.init();
@@ -5684,25 +5786,25 @@ $(document)
 
 
 var product_code_tbl = {
-	AT : "Men's Regular Fit T-Shirt",
+	AT: "Men's Regular Fit T-Shirt",
 	ATT: "Men's Tall Fit T-Shirt",
-	SF : "Men's Slim Fit T-Shirt",
+	SF: "Men's Slim Fit T-Shirt",
 	PSF: "Men's Premium Slim Fit T-Shirt",
 	HA: "Men's Heather T-Shirt",
 	PT: "Men's Premium T-Shirt",
-	AL : "Men's Long Sleeve T-Shirt",
+	AL: "Men's Long Sleeve T-Shirt",
 	AFTH: "Pullover Hoodie",
 	AHPP: "All-Over Print Pullover Hoodie",
 	AS: "Men's Crewneck Sweatshirt",
 	AR: "Men's Ringer T-Shirt",
 	AV: "Men's V-Neck T-Shirt",
-	TK : "Men's Tank",
+	TK: "Men's Tank",
 	WT: "Women's T-Shirt",
-	JS : "Junior T-Shirt",
+	JS: "Junior T-Shirt",
 	PJS: "Junior Premium T-Shirt",
 	JV: "Junior V-Neck T-Shirt",
 	JTK: "Junior Tank",
-	YT : "Youth T-Shirt (Ages 8-12)",
+	YT: "Youth T-Shirt (Ages 8-12)",
 	YFTH: "Youth Hoodie (Ages 8-12)",
 	KT: "Kids T-Shirt (Ages 4-7)",
 	TT: "Toddler T-Shirt",

@@ -64,36 +64,52 @@
     {% if collection_handles contains 'coming-soon' %}
       <p class="modal_price">{{ 'collections.general.coming_soon' | t }}</p>
     {% else %}
-      <p class="modal_price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-        <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
-        <meta itemprop="seller" content="{{ shop.name | escape }}" />
-        <link itemprop="availability" href="http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}">
-        <meta itemprop="itemCondition" content="New" />
+      <div class="price-rewards-sizechart">
+        <div class="row">
+          <div class="col-xs-4 col-sm-4">
+            <p class="modal_price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+              <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
+              <meta itemprop="seller" content="{{ shop.name | escape }}" />
+              <link itemprop="availability" href="http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}">
+              <meta itemprop="itemCondition" content="New" />
 
-        <span class="sold_out">{% if variant.available == false %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
-        <span itemprop="price" content="{{ variant.price | money_without_currency | remove: "," }}" class="{% if variant.compare_at_price > variant.price %}sale{% endif %}">
-          <span class="current_price {% if product.available == false %}hidden{% endif %}">
-            {% if variant.price > 0 %}
-              <span class="money">{{ variant.price | money }}</span>
-            {% else %}
-              {{ settings.free_price_text }}
-            {% endif %}
-          </span>
-        </span>
-        <span class="was_price">
-          {% if variant.price < variant.compare_at_price and variant.available %}
-            <span class="money">{{ variant.compare_at_price | money }}</span>
-          {% endif %}
-        </span>
+              <span class="sold_out">{% if variant.available == false %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+              <span itemprop="price" content="{{ variant.price | money_without_currency | remove: "," }}" class="{% if variant.compare_at_price > variant.price %}sale{% endif %}">
+                <span class="current_price {% if product.available == false %}hidden{% endif %}">
+                  {% if variant.price > 0 %}
+                    <span class="money">{{ variant.price | money }}</span>
+                  {% else %}
+                    {{ settings.free_price_text }}
+                  {% endif %}
+                </span>
+              </span>
+              <span class="was_price">
+                {% if variant.price < variant.compare_at_price and variant.available %}
+                  <span class="money">{{ variant.compare_at_price | money }}</span>
+                {% endif %}
+              </span>
 
-        {% if section.settings.display_savings %}
-          <span class="sale savings">
-            {% if variant.price < variant.compare_at_price and variant.available %}
-              {{ 'products.product.savings' | t }}  {{ variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price }}% (<span class="money">{{ variant.compare_at_price | minus: variant.price | money }}</span>)
-            {% endif %}
-          </span>
-        {% endif %}
-      </p>
+              {% if section.settings.display_savings %}
+                <span class="sale savings">
+                  {% if variant.price < variant.compare_at_price and variant.available %}
+                    {{ 'products.product.savings' | t }}  {{ variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price }}% (<span class="money">{{ variant.compare_at_price | minus: variant.price | money }}</span>)
+                  {% endif %}
+                </span>
+              {% endif %}
+            </p>
+          </div>
+          <div class="col-xs-8 col-sm-8 rewards-sizechart">
+            <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                <a href="javascript:void(rewardsmgr_open());" id="rewards-logo" class="link_rewards-logo">
+                  <img src="{{ 'rewards-logo-sm.png' | asset_img_url: '350x' }}" alt="Sons of Gotham Rewards">
+                </a>
+              </div>
+              <div class="col-xs-5 col-sm-6 text-right"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {% include 'product-notify-me' %}
     {% endif %}

@@ -1,0 +1,27 @@
+<!-- BEGIN /snippets/vendors.liquid -->
+{% assign excluded_vendors = '' %}
+<div class="shopify-section popular-brands">
+  <div class="container">
+    <h2 class="small--text-center">Popular Brands</h2>
+    <div class="brands-slider">
+      {% for vendor in shop.vendors %}
+        {% if forloop.index0 == 50 %}{% break %}{% endif %}
+        {% assign vendor_handle = vendor | handleize %}
+        {% unless excluded_vendors contains vendor_handle %}
+          {% capture vendor_logo %}vendor-{{ vendor_handle }}.png{% endcapture %}
+          <a href="/collections/{{ vendor_handle | escape }}" class="" title="View all {{vendor}} products">
+            {% comment %}
+              Vendor logo logo source is only 200px wide
+            {% endcomment %}
+            <img
+              src="{{ vendor_logo | asset_img_url: '70x' }}"
+              srcset="{{ vendor_logo | asset_img_url: '90x' }} 1x, {{ vendor_logo | asset_img_url: '90x', scale: 2 }} 2x"
+              alt="{{ vendor | escape }}" 
+              class="lz">
+          </a>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- END /snippets/vendors.liquid -->
