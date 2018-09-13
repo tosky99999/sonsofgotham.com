@@ -1,0 +1,87 @@
+{% comment %}
+** Tabbed featured products - homepage partial **
+- Draggable section
+- Uses blocks
+{% endcomment %}
+
+{% if section.blocks.size > 0 %}
+  <section class="container-max">
+    <div class="tabbed-featured-products__tabs">
+      <ul class="nav-tabs nav-tabs--center">
+        {%- for block in section.blocks -%}
+          <li class="nav-tabs__item">
+            <a href="#TabbedPanels-{{ block.id }}"
+              class="nav-tabs__item__link {% if forloop.first %}nav-tabs__item__link--active{% endif %}"
+              data-tabbed-panels-tab>
+              {%- if block.settings.label != blank -%}
+                {{- block.settings.label -}}
+              {%- else -%}
+                {{- collections[block.settings.collection].title -}}
+              {%- endif -%}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+    <div class="tabbed-featured-products__panels">
+      {%- for block in section.blocks -%}
+        <div id="TabbedPanels-{{ block.id }}"
+          class="tabbed-featured-products__panels__panel {% if forloop.first %}tabbed-featured-products__panels__panel--active{% endif %} product-grid product-grid--4s"
+          data-tabbed-panels-panel>
+          <div class="product-grid__row">
+            {%- assign tab_collection = collections[block.settings.collection] -%}
+            {%- for tab_product in tab_collection.products limit:8 -%}
+              {% include 'product-card', product: tab_product, collection: tab_collection %}
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Tabbed featured products",
+    "class": "tabbed-featured-products",
+    "max_blocks": 12,
+    "settings": [
+    ],
+    "blocks": [
+      {
+        "type": "collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "id": "collection",
+            "type": "collection",
+            "label": "Collection"
+          },
+          {
+            "id": "label",
+            "type": "text",
+            "label": "Tab label",
+            "info": "Defaults to collection title"
+          }
+        ]
+      }
+    ],
+    "presets": [{
+      "name": "Tabbed featured products",
+      "category": "Product",
+      "settings": {
+      },
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }]
+  }
+{% endschema %}
