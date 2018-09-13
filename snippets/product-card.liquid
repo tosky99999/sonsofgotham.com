@@ -1,0 +1,22 @@
+{%- if product != blank -%}
+  <div class="product-grid__col">
+    <a href="{{ product.url | within: collection }}" class="product-grid__col__content product-card {% if product.images.size > 1%}product-card--hoverable{% endif %}">
+      {%- for image in product.images limit:2 -%}
+        <picture class="product-card__picture product-card__picture--{% if forloop.index == 1%}default{% else %}hover{% endif %}">
+          <source srcset="{{ image | img_url: '330x330' }} 1x, {{ image | img_url: '330x330', scale: 2 }} 2x" media="(min-width:1280px)">
+          <source srcset="{{ image | img_url: '250x250' }} 1x, {{ image | img_url: '250x250', scale: 2 }} 2x" media="(min-width:1024px)">
+          <img src="{{ image | img_url: '180x180' }}"
+              srcset="{{ image | img_url: '180x180' }} 1x, {{ image | img_url: '180x180', scale: 2 }} 2x"
+              alt="{{ product.title | escape }}" class="lazyload product-card__picture__image">
+        </picture>
+      {%- endfor -%}
+      <div class="product-card__overlay">
+        <div class="product-card__info product-card-info">
+          <h3 class="product-card-info__title">{{ product.title }}</h3>
+          <p class="product-card-info__price"><i>from</i> <span>{{ product.price_min | money }}</span></p>
+          <p class="product-card-info__more">More Styles Available &gt;</p>
+        </div>
+      </div>
+    </a>
+  </div>
+{%- endif -%}

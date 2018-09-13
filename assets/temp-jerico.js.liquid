@@ -1,0 +1,35 @@
+// TEMPORARY JS -- MERGE WITH `app.js.liquid`
+// !!! DELETE WHEN MERGING !!!
+
+(function($, undefined) {
+  'use strict';
+
+  $(document).ready(function() {
+
+    // Tabbed Panels
+    // -------------------------------------------------------------------------
+    var tabbedPanelsSelectors = {
+      tab: '[data-tabbed-panels-tab]',
+      panel: '[data-tabbed-panels-panel]',
+      tabActive: '.nav-tabs__item__link--active',
+      panelActive: '.tabbed-featured-products__panels__panel--active'
+    };
+
+    var tabbedPanelsClasses = {
+      tabActive: 'nav-tabs__item__link--active',
+      panelActive: 'tabbed-featured-products__panels__panel--active'
+    };
+
+    $(tabbedPanelsSelectors.tab).on('click', function(event) {
+      event.preventDefault();
+
+      $(tabbedPanelsSelectors.tabActive).removeClass(tabbedPanelsClasses.tabActive);
+      $(this).addClass(tabbedPanelsClasses.tabActive);
+
+      $(tabbedPanelsSelectors.panelActive).removeClass(tabbedPanelsClasses.panelActive);
+      $($(this).attr('href')).addClass(tabbedPanelsClasses.panelActive);
+    });
+    
+  });
+
+})(jQuery);
