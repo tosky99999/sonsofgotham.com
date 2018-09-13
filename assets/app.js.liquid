@@ -1164,7 +1164,7 @@ selectCallback = function(variant, selector) {
   {% endif %}
 };
 
-var $main = $('.shopify-section, .yotpo.yotpo-main-widget, .main.content, .brands, .brands-heading').not(".header-section, .newsletter-section:eq(1), .footer-section, .image-with-text-overlay-section.under-menu:eq(0)"), $elastic_section = $('.elasticsearch-section'), $price_range = $("#price_range"), $pagination = $('.search-pagination'), $pickers = $('.elasticsearch-section .select-filter'), $selectors = $('.elasticsearch-section select'), $sort = $('.selectpicker.sort'), $vendors = $('.selectpicker.vendors'), $types = $('.selectpicker.types'), $stock = $('.selectpicker.stock'), $notice = $('.search-results .row'), $search_results = $('.search-results'), $search_form = $('form[action="/search"]'), $search_box, $autocomplete, $autocomplete_result = $('.search-autocomplete'), marginTop = 0;
+var $main = $('.shopify-section, .yotpo.yotpo-main-widget, .main.content, .brands, .brands-heading').not(".header-section, .newsletter-section:eq(1), .footer-section, .image-with-text-overlay-section.under-menu:eq(0)"), $elastic_section = $('.elasticsearch-section'), $price_range = $("#price_range"), $pagination = $('.search-pagination'), $pickers = $('.elasticsearch-section .select-filter'), $selectors = $('.elasticsearch-section select'), $sort = $('.selectpicker.sort'), $vendors = $('.selectpicker.vendors'), $types = $('.selectpicker.types'), $stock = $('.selectpicker.stock'), $notice = $('.search-results .row'), $search_results = $('.search-results'), $search_form = $('form[action="/search"]'), $search_box, $autocomplete, $autocomplete_result = $('.search-autocomplete'), marginTop = 0, $main_nav_wrapper = $('header .main_nav_wrapper'), $banner = $('.under-menu section.banner');
 
 var searchPage = {
 	initialize: function() {
@@ -1236,23 +1236,23 @@ var searchPage = {
 	        	searchPage.search(window.query, 0);
 	        }
 	      }
-	    }, 300);
+	    }, 400);
 		});
 
-		var autocomplete_timer = null;
-		$autocomplete.on('keyup', function(e) {
-			clearTimeout(autocomplete_timer);
-			var $obj = $(this);
-    	var val = $obj.val();
-    	autocomplete_timer = setTimeout(function () {	      
-	      if (val.trim() == '') {
-	        $autocomplete_result.hide();
-	      } else {
-	      	window.query = val;
-	        searchPage.autocomplete(window.query);
-	      }
-	    }, 300);
-		});
+		// var autocomplete_timer = null;
+		// $autocomplete.on('keyup', function(e) {
+		// 	clearTimeout(autocomplete_timer);
+		// 	var $obj = $(this);
+  //   	var val = $obj.val();
+  //   	autocomplete_timer = setTimeout(function () {	      
+	 //      if (val.trim() == '') {
+	 //        $autocomplete_result.hide();
+	 //      } else {
+	 //      	window.query = val;
+	 //        searchPage.autocomplete(window.query);
+	 //      }
+	 //    }, 300);
+		// });
 
 		$search_form.on('submit', function(e) {
       e.preventDefault();
@@ -1261,7 +1261,7 @@ var searchPage = {
 
     $(window).resize(function() {
     	if (location.pathname == "/") {
-	    	marginTop = $('header .main_nav_wrapper').outerHeight() - $('.under-menu section.banner').outerHeight();
+	    	marginTop = $main_nav_wrapper.outerHeight() - $banner.outerHeight();
 	    	$elastic_section.css('margin-top', marginTop);
 	    }
     });	
@@ -1314,10 +1314,11 @@ var searchPage = {
 				product['image1']['width'] = product['image1']['height'] = 1000;
 				product['image1']['alt'] = "";
 			}
-			var maxWidth = product['image1']['width'];
-			if (align_height) {
-				maxWidth = product['image1']['width'] / product['image1']['height'] * collection_height;
-			}
+			// var maxWidth = product['image1']['width'];
+			// if (align_height) {
+			// 	maxWidth = product['image1']['width'] / product['image1']['height'] * collection_height;
+			// }
+			var maxWidth = collection_height;
 			var align_height_value = (product['image1']['width'] >= product['image1']['height'] ? 'width: 100%; height: auto;' : 'width: 100%;');
 			html += '<div class="image__container" style=" max-width: ' + maxWidth + 'px; ">';
 
@@ -1690,7 +1691,7 @@ var collectionPage = {
 		$.ajax({
 			method: "GET",
 			url: "https://search.sonsofgotham.com/collection",
-			data: { id: window.collection.id, page: page, per_page: 24, tags: tags },
+			data: { id: window.collection.id, page: page, per_page: 24, tags: tags, sort_by: $('#sort-by').val() },
 			success: function(result) {
 				if (result.data.length > 0) {
 					window.collection_products = result.data;
@@ -1916,7 +1917,7 @@ var productPage = {
 						window.men_styles.push(style.toLowerCase())	
 					}
 					
-					if (i == 0) {
+					if (product.id == window.jsonProduct.id) {
 	    			$('ul.tabs > li > a[href="#men"]').trigger('click');
 	    			$('.select-target select').val('men');
 	    		}
@@ -1928,7 +1929,7 @@ var productPage = {
 					if (style != '') {
 						window.women_styles.push(style.toLowerCase())	
 					}
-					if (i == 0) {
+					if (product.id == window.jsonProduct.id) {
 	    			$('ul.tabs > li > a[href="#women"]').trigger('click');
 	    			$('.select-target select').val('women');
 	    		}
@@ -1940,7 +1941,7 @@ var productPage = {
 					if (style != '') {
 						window.kids_styles.push(style.toLowerCase())	
 					}
-					if (i == 0) {
+					if (product.id == window.jsonProduct.id) {
 	    			$('ul.tabs > li > a[href="#kids"]').trigger('click');
 	    			$('.select-target select').val('kids');
 	    		}
@@ -1952,7 +1953,7 @@ var productPage = {
 					if (style != '') {
 						window.baby_styles.push(style.toLowerCase())	
 					}
-					if (i == 0) {
+					if (product.id == window.jsonProduct.id) {
 	    			$('ul.tabs > li > a[href="#baby"]').trigger('click');
 	    			$('.select-target select').val('baby');
 	    		}
@@ -1964,7 +1965,7 @@ var productPage = {
 					if (style != '') {
 						window.goods_styles.push(style.toLowerCase())	
 					}
-					if (i == 0) {
+					if (product.id == window.jsonProduct.id) {
 	    			$('ul.tabs > li > a[href="#goods"]').trigger('click');
 	    			$('.select-target select').val('goods');
 	    		}
@@ -1975,7 +1976,7 @@ var productPage = {
     			if (style != '') {
 						window.men_styles.push(style.toLowerCase())	
 					}
-					if (i == 0) {
+					if (product.id == window.jsonProduct.id) {
 						$('ul.tabs > li > a[href="#men"]').trigger('click');
 						$('.select-target select').val('men');
 	    		}
@@ -2518,7 +2519,8 @@ var productPage = {
     var original_image_width = '1000px';
     var original_image_height = '1000px';
 
-    /*--------  Product Title, Description And Yotpo --------- */
+    /*--------  Product Vendor, Title, Description And Yotpo --------- */
+
     $('.product_section .product_name').text(product.title);
     $('.product_section .description').html(product.body_html);
     $('.yotpo.bottomLine').attr('data-product-id', product.id);
@@ -2796,9 +2798,10 @@ var productPage = {
 
                       if (is_color) {
                         let option_color = value.split(' ')[1] ? value.split(' ')[1] : value.split(' ')[0];
+                        let handle_color = value.toLowerCase().split(' ').join('_');
                         template += '<label for="swatch-'
                          + option_index + '-' + value.replace(/\W+/g, "-") + '-' + product.id
-                         + '" style="background-color: ' + option_color
+                         + '" style="background-color: ' + (typeof color_list[handle_color] != 'undefined' ? color_list[handle_color] : option_color)
                          + '"><span class="crossed-out"></span></label>';
                       } else {
                         template += '<label for="swatch-'
@@ -5842,3 +5845,25 @@ var product_code_tbl = {
 	PCH1: "Straight Bottom Zippered Pouch",
 	PCH2: "Tapered Bottom Zippered Pouch",
 };
+
+var color_list = {
+	athletic_heather: '#BEBBBB',
+	blue: '#000080',
+	brown: '#654321',
+	charcoal: '#36454f',
+	cream: '#FCFBE3',
+	green: '#355e3b',
+	indigo: '#5C6AC4',
+	lavender: '#e6e6fa',
+	light_blue: '#D9E9F3',
+	military_green: '#4b5320',
+	navy_blue: '#000080',
+	orange: '#FFA500',
+	pink: '#ffc0cb',
+	purple: '#551A8B',
+	royal_blue: '#4169E1',
+	sky_blue: '#99CCFF',
+	tan: '#D2B48C',
+	turquoise: '#40E0D0',
+	yellow: '#FFFF00'
+}
