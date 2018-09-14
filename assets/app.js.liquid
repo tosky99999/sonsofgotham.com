@@ -1914,7 +1914,7 @@ var productPage = {
     		if (tags.indexOf(", men,") >= 0) {
 					$('#men').append(html);
 					if (style != '') {
-						window.men_styles.push(style.toLowerCase())	
+						window.men_styles.push({style: style.toLowerCase(), handle: product.handle, id: product.id, order: i})	
 					}
 					
 					if (product.id == window.jsonProduct.id) {
@@ -1927,7 +1927,7 @@ var productPage = {
     		if (tags.indexOf(", women,") >= 0) {
 					$('#women').append(html);
 					if (style != '') {
-						window.women_styles.push(style.toLowerCase())	
+						window.women_styles.push({style: style.toLowerCase(), handle: product.handle, id: product.id, order: i})	
 					}
 					if (product.id == window.jsonProduct.id) {
 	    			$('ul.tabs > li > a[href="#women"]').trigger('click');
@@ -1939,7 +1939,7 @@ var productPage = {
     		if (tags.indexOf(", kids,") >= 0) {
 					$('#kids').append(html);
 					if (style != '') {
-						window.kids_styles.push(style.toLowerCase())	
+						window.kids_styles.push({style: style.toLowerCase(), handle: product.handle, id: product.id, order: i})	
 					}
 					if (product.id == window.jsonProduct.id) {
 	    			$('ul.tabs > li > a[href="#kids"]').trigger('click');
@@ -1951,7 +1951,7 @@ var productPage = {
     		if (tags.indexOf(", baby,") >= 0) {
 					$('#baby').append(html);
 					if (style != '') {
-						window.baby_styles.push(style.toLowerCase())	
+						window.baby_styles.push({style: style.toLowerCase(), handle: product.handle, id: product.id, order: i})	
 					}
 					if (product.id == window.jsonProduct.id) {
 	    			$('ul.tabs > li > a[href="#baby"]').trigger('click');
@@ -1963,7 +1963,7 @@ var productPage = {
     		if (tags.indexOf(", goods,") >= 0) {
 					$('#goods').append(html);
 					if (style != '') {
-						window.goods_styles.push(style.toLowerCase())	
+						window.goods_styles.push({style: style.toLowerCase(), handle: product.handle, id: product.id, order: i})	
 					}
 					if (product.id == window.jsonProduct.id) {
 	    			$('ul.tabs > li > a[href="#goods"]').trigger('click');
@@ -1974,7 +1974,7 @@ var productPage = {
     		if (!added) {
     			$('#men').append(html);
     			if (style != '') {
-						window.men_styles.push(style.toLowerCase())	
+						window.men_styles.push({style: style.toLowerCase(), handle: product.handle, id: product.id, order: i})	
 					}
 					if (product.id == window.jsonProduct.id) {
 						$('ul.tabs > li > a[href="#men"]').trigger('click');
@@ -1986,27 +1986,27 @@ var productPage = {
 
     if ($('#men').find('.each').length == 0) {
     	$('ul.tabs > li[data-tag="men"]').hide();
-    	$(".select-target option[value=men]").hide();
+    	$(".select-target option[value=men]").hide().attr('disabled', 'disabled');
     }
 
     if ($('#women').find('.each').length == 0) {
     	$('ul.tabs > li[data-tag="women"]').hide();
-    	$(".select-target option[value=women]").hide();
+    	$(".select-target option[value=women]").hide().attr('disabled', 'disabled');
     }
 
     if ($('#kids').find('.each').length == 0) {
     	$('ul.tabs > li[data-tag="kids"]').hide();
-    	$(".select-target option[value=kids]").hide();
+    	$(".select-target option[value=kids]").hide().attr('disabled', 'disabled');
     }
 
     if ($('#baby').find('.each').length == 0) {
     	$('ul.tabs > li[data-tag="baby"]').hide();
-    	$(".select-target option[value=baby]").hide();
+    	$(".select-target option[value=baby]").hide().attr('disabled', 'disabled');
     }
 
     if ($('#goods').find('.each').length == 0) {
     	$('ul.tabs > li[data-tag="goods"]').hide();
-    	$(".select-target option[value=goods]").hide();
+    	$(".select-target option[value=goods]").hide().attr('disabled', 'disabled');
     }
 
     $('.each p').matchHeight();
@@ -2109,23 +2109,71 @@ var productPage = {
     	$(selectedTab).slick('setPosition');
     });
   },
-  updateStyleOptionsList: function(content) {
-  	$('.select-bodystyle option').each(function() {
-    	var style = $(this).val();
-    	if (content == 'men' && window.men_styles.indexOf(style) > -1) {
-    		$(this).show();
-    	} else if (content == 'women' && window.women_styles.indexOf(style) > -1) {
-    		$(this).show();
-    	} else if (content == 'kids' && window.kids_styles.indexOf(style) > -1) {
-    		$(this).show();
-    	} else if (content == 'baby' && window.baby_styles.indexOf(style) > -1) {
-    		$(this).show();
-    	} else if (content == 'goods' && window.goods_styles.indexOf(style) > -1) {
-    		$(this).show();
-    	} else {
-    		$(this).hide();
-    	}
+  addStyleOptionsList: function(styles_list) {
+  	var $bodySelect = $('.select-bodystyle select');
+  	var $personSelect = $('.select-target select');
+  	for (var i = 0; i < styles_list.length; i++) {
+  		var style = styles_list[i].style.toUpperCase();
+  		var handle = styles_list[i].handle;
+  		var id = styles_list[i].id;
+  		var order = styles_list[i].order;
+  		$bodySelect.append('<option value="' + styles_list[i].style + '" data-handle="' + handle + '" data-id="' + id + '" data-order="' + order + '">' + product_code_tbl[style] + '</option>');
+  	}
+  	
+    $bodySelect.on('change', function() {
+      // let data = $($bodySelect[0].options[$bodySelect[0].selectedIndex]).data();
+      var product = window.testProducts[$bodySelect.find('option').eq($bodySelect[0].selectedIndex).data('order')];
+    	console.log($bodySelect.find('option').eq($bodySelect[0].selectedIndex).data('order'));
+      $('.product_section .product_name').text(product.title);
+      $('.product_section .description').html(product.description);
+
+      window.selected_product = product;
+      productPage.updatePopfunkProductImages(product);
+      productPage.initOptionActions(product);
+
+      $('.each[data-id="' + product.id + '"]').siblings().removeClass('active');
+    	$('.each[data-id="' + product.id + '"]').addClass('active');
+
+    	$('ul.tabs > li > a.active').removeClass('active');
+    	// var tabId = $( $('.each[data-id="' + product.id + '"]').parents('.person')[0] ).attr('id');
+    	var tabId = $personSelect.val();
+    	$('ul.tabs a[href="#' + tabId + '"]').addClass('active');
+      $('.products').find('#' + tabId).show().css({'display': 'block'}).addClass('active').siblings().hide().removeClass('active');
+
+      $('#' + tabId).slick('setPosition');
+      $('#' + tabId).slick('slickGoTo', $('#' + tabId + ' .each.active').index());
     });
+  },
+  updateStyleOptionsList: function(content) {
+  	$('.select-bodystyle select').empty();
+  	if (content == 'men') {
+  		productPage.addStyleOptionsList(window.men_styles);
+  	} else if (content == 'women') {
+  		productPage.addStyleOptionsList(window.women_styles);
+  	} else if (content == 'kids') {
+  		productPage.addStyleOptionsList(window.kids_styles);
+  	} else if (content == 'baby') {
+  		productPage.addStyleOptionsList(window.baby_styles);
+  	} else if (content == 'goods') {
+  		productPage.addStyleOptionsList(window.goods_styles);
+  	}
+
+  	// $('.select-bodystyle option').each(function() {
+   //  	var style = $(this).val();
+   //  	if (content == 'men' && window.men_styles.indexOf(style) > -1) {
+   //  		$(this).show().removeAttr('disabled');
+   //  	} else if (content == 'women' && window.women_styles.indexOf(style) > -1) {
+   //  		$(this).show().removeAttr('disabled');
+   //  	} else if (content == 'kids' && window.kids_styles.indexOf(style) > -1) {
+   //  		$(this).show().removeAttr('disabled');
+   //  	} else if (content == 'baby' && window.baby_styles.indexOf(style) > -1) {
+   //  		$(this).show().removeAttr('disabled');
+   //  	} else if (content == 'goods' && window.goods_styles.indexOf(style) > -1) {
+   //  		$(this).show().removeAttr('disabled');
+   //  	} else {
+   //  		$(this).hide().attr("disabled", "disabled");
+   //  	}
+   //  });
   },
   initOptionActions: function(product) {
   	/*----------  Make Cart Button Active When All options are selected  ----------*/
@@ -5153,7 +5201,7 @@ Shopify.each = function(t, e) {
         if (t == o.id) return o
     }
     return null
-}, Shopify.money_format = "${{amount}}", Shopify.formatMoney = function(t, e) {
+}, Shopify.money_format = "$\{\{amount\}\}", Shopify.formatMoney = function(t, e) {
     function o(t, e) {
         return "undefined" == typeof t ? e : t
     }
