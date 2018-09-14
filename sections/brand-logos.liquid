@@ -1,0 +1,84 @@
+<div class="sog-container-wide">
+  {%- if section.settings.title != blank -%}
+    <div class="row">
+      <div class="col-xs-12">
+        <h2 class="title text-center">{{ section.settings.title }}</h2>
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="row">
+    {%- for block in section.blocks -%}
+      <div class="col-xs-4 col-sm-2 brand-logos-section__logo-wrapper">
+        <a href="{{ block.settings.link }}" class="brand-logos-section__link">
+          <picture class="">
+            {% comment %} <source srcset="{{ block.settings.image | img_url: '500x500' }} 1x, {{ block.settings.image | img_url: '500x500', scale: 2 }} 2x" media="(min-width:1600px)"> {% endcomment %}
+            {% comment %} <source srcset="{{ block.settings.image | img_url: '330x330' }} 1x, {{ block.settings.image | img_url: '330x330', scale: 2 }} 2x" media="(min-width:1280px)"> {% endcomment %}
+            {% comment %} <source srcset="{{ block.settings.image | img_url: '250x250' }} 1x, {{ block.settings.image | img_url: '250x250', scale: 2 }} 2x" media="(min-width:1024px)"> {% endcomment %}
+            <img src="{{ block.settings.image | img_url: '130x130' }}"
+                 srcset="{{ block.settings.image | img_url: '130x130' }} 1x, {{ block.settings.image | img_url: '130x130', scale: 2 }} 2x"
+                 alt="{{ block.settings.image.alt | escape }}" class="lazyload img-responsive brand-logos-section__image">
+          </picture>
+        </a>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <a href="/pages/shop-by-brand" class="action_button continue-button btn-shiny">View All Brands</a>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Brand logos",
+    "class": "brand-logos-section",
+    "max_blocks": 24,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "logo_image",
+        "name": "Logo",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Brand logos",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
