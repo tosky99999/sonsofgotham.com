@@ -3200,10 +3200,16 @@ ul.toggle_list li ul {
 .featured-blog-section {
 	.featured-blog-content {
 		background-color: #f5f5f5;
-		margin: 0 auto 60px auto;
+		margin: 0 auto;
 		.container {
 			margin-top: -180px;
-			padding-bottom: 120px;
+			padding-bottom: 30px;
+      @media (min-width: 1440px) {
+        padding-bottom: 120px;
+      }
+      @media (min-width: 1600px) {
+        margin-bottom: 60px;
+      }
 		}
 
 		.featured-blog-title {

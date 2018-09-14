@@ -38,6 +38,12 @@ body.index {
   max-width: 1440px;
 }
 
+// UTILS
+.shadow-box {
+  box-shadow: 0 1px 16px rgba(11,25,28,0.8);
+  border-radius: 5px;
+}
+
 // Product Grid
 $product-grid-gutter: 20px; // from the theme
 
@@ -236,6 +242,7 @@ a.nav-tabs__item__link--active {
 
 .tabbed-featured-products__panels__panel {
   display: none;
+  padding: 20px;
 }
 
 .tabbed-featured-products__panels__panel--active {
@@ -244,9 +251,11 @@ a.nav-tabs__item__link--active {
 
 // TABBED FEATURED PRODUCTS
 .tabbed-featured-products {
-  padding-top: $gutter;
-  padding-bottom: $gutter;
-  background-color: #fff;
+  // padding-top: $gutter;
+  // padding-bottom: $gutter;
+  .shadow-box {
+    background-color: #fff;
+  }
 }
 
 // Rich text and image gets a shadow
@@ -301,7 +310,7 @@ a.nav-tabs__item__link--active {
 // CUSTOM COLLECTION LIST
 .collection-list-section {
   padding-top: $gutter * 2;
-  padding-bottom: $gutter * 2;
+  padding-bottom: $gutter;
   .row {
     margin-bottom: 0;
   }
