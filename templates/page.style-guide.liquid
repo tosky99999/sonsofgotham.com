@@ -1,0 +1,98 @@
+</div>
+{%- comment -%}
+  The codes above closes the `.container.main.content` to make this area
+  independent of the global container.
+{%- endcomment -%}
+
+<h1 class="sg">{{ page.title }}</h1>
+<p class="sg"><small>Updated: 14 September 2018</small></p>
+<hr class="hr">
+
+<h2 class="sg">Custom Containers</h2>
+<hr class="hr">
+
+<div class="sog-container-fluid sg-mask">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="sg-mask">
+        <h3 class="sg">Fluid Container - No Max Width</h3>
+        <p class="sg"><code>.sog-container-fluid</code></p>
+      </div>
+    </div>
+  </div>
+  <div class="row sg-grid-mask">
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+  </div>
+</div>
+
+<div class="sog-container-wide sg-mask">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="sg-mask">
+        <h3 class="sg">Wide Container - Max Width: 1920px</h3>
+        <p class="sg"><code>.sog-container-wide</code></p>
+      </div>
+    </div>
+  </div>
+  <div class="row sg-grid-mask">
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+  </div>
+</div>
+
+<div class="sog-container-narrow sg-mask">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="sg-mask">
+        <h3 class="sg">Narrow Container - Max Width: 1440px</h3>
+        <p class="sg"><code>.sog-container-narrow</code></p>
+      </div>
+    </div>
+  </div>
+  <div class="row sg-grid-mask">
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+    <div class="col-xs-12 col-sm-1 text-center">-</div>
+  </div>
+</div>
+
+<hr class="hr">
+            
+
+<style>
+  .sg { margin-top: 15px; margin-bottom: 15px; text-align: center; }
+  .sg-mask { background-color: #eee; }
+  .sg-mask .sg-mask { background-color: #ddd; }
+  .sg-grid-mask > [class^='col-'] { background-color: #ccc; }
+  .sg-grid-mask > [class^='col-']:nth-child(odd) { background-color: #bbb; }
+</style>
