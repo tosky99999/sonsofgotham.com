@@ -3,6 +3,7 @@
     <a href="{{ product.url | within: collection }}" class="product-grid__col__content product-card {% if product.images.size > 1%}product-card--hoverable{% endif %}">
       {%- for image in product.images limit:2 -%}
         <picture class="product-card__picture product-card__picture--{% if forloop.index == 1%}default{% else %}hover{% endif %}">
+          <source srcset="{{ image | img_url: '500x500' }} 1x, {{ image | img_url: '500x500', scale: 2 }} 2x" media="(min-width:1600px)">
           <source srcset="{{ image | img_url: '330x330' }} 1x, {{ image | img_url: '330x330', scale: 2 }} 2x" media="(min-width:1280px)">
           <source srcset="{{ image | img_url: '250x250' }} 1x, {{ image | img_url: '250x250', scale: 2 }} 2x" media="(min-width:1024px)">
           <img src="{{ image | img_url: '180x180' }}"

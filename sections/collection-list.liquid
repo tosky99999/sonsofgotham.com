@@ -24,7 +24,7 @@
                 <source srcset="{{ block.settings.image | img_url: '350x' }} 1x, {{ block.settings.image | img_url: '350x', scale: 2 }} 2x" media="(min-width:768px)">
                 <img src="{{ block.settings.image | img_url: '200x200', crop: 'center' }}"
                     srcset="{{ block.settings.image | img_url: '200x200', crop: 'center' }} 1x, {{ block.settings.image | img_url: '200x200', scale: 2, crop: 'center' }} 2x"
-                    alt="{{ collection.title | escape }}" class="img-responsive lazyload">
+                    alt="{{ collection.title | escape }}" class="img-responsive lazyload custom-collection-list__picture__img">
               </picture>
             </a>
           </div>
@@ -35,9 +35,9 @@
                 <source srcset="{{ block.settings.image | img_url: '1890x' }} 1x, {{ block.settings.image | img_url: '1890x', scale: 2 }} 2x" media="(min-width:1600px)">
                 <source srcset="{{ block.settings.image | img_url: '1410x' }} 1x, {{ block.settings.image | img_url: '1410x', scale: 2 }} 2x" media="(min-width:1280px)">
                 <source srcset="{{ block.settings.image | img_url: '994x' }} 1x, {{ block.settings.image | img_url: '994x', scale: 2 }} 2x" media="(min-width:768px)">
-                <img src="{{ block.settings.image | img_url: '200x200', crop: 'center' }}"
-                    srcset="{{ block.settings.image | img_url: '200x200', crop: 'center' }} 1x, {{ block.settings.image | img_url: '200x200', scale: 2, crop: 'center' }} 2x"
-                    alt="{{ collection.title | escape }}" class="img-responsive lazyload">
+                <img src="{{ block.settings.image | img_url: '200x200', crop: 'left' }}"
+                    srcset="{{ block.settings.image | img_url: '200x200', crop: 'left' }} 1x, {{ block.settings.image | img_url: '200x200', scale: 2, crop: 'left' }} 2x"
+                    alt="{{ collection.title | escape }}" class="img-responsive lazyload custom-collection-list__picture__img">
               </picture>
             </a>
           </div>

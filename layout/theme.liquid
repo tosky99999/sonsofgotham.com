@@ -17,7 +17,7 @@
 
     <!-- Stylesheets for Turbo 2.2.2 -->
     {{ 'styles.scss.css' | asset_url | stylesheet_tag }}
-    {{ 'temp-jerico.scss.css' | asset_url | stylesheet_tag }}
+    {{ 'temp-styles.scss.css' | asset_url | stylesheet_tag }}
     {% comment %}
     {{ '//cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.css' | stylesheet_tag }}
     {% endcomment %}
@@ -163,7 +163,7 @@
     {% endif %}
 
     <script src="{{ 'app.js' | asset_url }}" defer></script>
-    <script src="{{ 'temp-jerico.js' | asset_url }}" defer></script>
+    <script src="{{ 'temp-app.js' | asset_url }}" defer></script>
 
     {% include 'size-charts' %}
     {% include 'free-shipping' %}
