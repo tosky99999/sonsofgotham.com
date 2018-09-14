@@ -1643,6 +1643,12 @@ var collectionPage = {
 
 		$('.collection-results .product-list').append(html);
 
+		// if (window.collection_more && window.collection_page == 0) {
+		if (window.collection_more) {
+			html = '<div class="load-more"><a href="" data-no-instant="" class=" action_button continue-button">Load More Products</a></div>';
+			$('.collection-results .product-list').append(html);
+		}
+
 		if (window.collection_desc != "") {
 			var parser = new DOMParser;
 			var dom = parser.parseFromString(window.collection_desc, 'text/html');
@@ -1650,13 +1656,6 @@ var collectionPage = {
 
 			$('.collection-results .product-list').append(html);
 		}
-
-		// if (window.collection_more && window.collection_page == 0) {
-		if (window.collection_more) {
-			html = '<div class="load-more"><a href="" data-no-instant="" class=" action_button continue-button">Load More Products</a></div>';
-			$('.collection-results .product-list').append(html);
-		}
-
 		// $(html).insertBefore('.collection-results #loading');
 		var $productWrap = $('.collection-results .product-wrap');
 		var $productThumb = $('.collection-results .thumbnail');
@@ -1893,7 +1892,6 @@ var productPage = {
     window.goods_styles = []
     var no_image = "{{ 'no-image.gif' | asset_url }}";
     var $targetSelect = $('.select-target select');
-    $targetSelect.empty();
     for (var i = 0; i < window.testProducts.length; i++) {
     	var product = window.testProducts[i];
     	if (product.tags.length > 0) {
@@ -1918,10 +1916,6 @@ var productPage = {
 					if (style != '') {
 						window.men_styles.push({style: style.toLowerCase(), handle: product.handle, id: product.id, order: i})	
 					}
-
-					if ($targetSelect.find('option[value="men"]').length == 0) {
-						$targetSelect.append('<option value="men">Mens</option>');
-					}
 					
 					if (product.id == window.jsonProduct.id) {
 	    			$('ul.tabs > li > a[href="#men"]').trigger('click');
@@ -1935,9 +1929,7 @@ var productPage = {
 					if (style != '') {
 						window.women_styles.push({style: style.toLowerCase(), handle: product.handle, id: product.id, order: i})	
 					}
-					if ($targetSelect.find('option[value="women"]').length == 0) {
-						$targetSelect.append('<option value="women">Womens</option>');
-					}
+					
 					if (product.id == window.jsonProduct.id) {
 	    			$('ul.tabs > li > a[href="#women"]').trigger('click');
 	    			$('.select-target select').val('women');
@@ -1950,9 +1942,7 @@ var productPage = {
 					if (style != '') {
 						window.kids_styles.push({style: style.toLowerCase(), handle: product.handle, id: product.id, order: i})	
 					}
-					if ($targetSelect.find('option[value="kids"]').length == 0) {
-						$targetSelect.append('<option value="kids">Kids</option>');
-					}
+					
 					if (product.id == window.jsonProduct.id) {
 	    			$('ul.tabs > li > a[href="#kids"]').trigger('click');
 	    			$('.select-target select').val('kids');
@@ -1965,9 +1955,7 @@ var productPage = {
 					if (style != '') {
 						window.baby_styles.push({style: style.toLowerCase(), handle: product.handle, id: product.id, order: i})	
 					}
-					if ($targetSelect.find('option[value="baby"]').length == 0) {
-						$targetSelect.append('<option value="baby">Babies</option>');
-					}
+					
 					if (product.id == window.jsonProduct.id) {
 	    			$('ul.tabs > li > a[href="#baby"]').trigger('click');
 	    			$('.select-target select').val('baby');
@@ -1980,9 +1968,7 @@ var productPage = {
 					if (style != '') {
 						window.goods_styles.push({style: style.toLowerCase(), handle: product.handle, id: product.id, order: i})	
 					}
-					if ($targetSelect.find('option[value="goods"]').length == 0) {
-						$targetSelect.append('<option value="goods">Goods</option>');
-					}
+					
 					if (product.id == window.jsonProduct.id) {
 	    			$('ul.tabs > li > a[href="#goods"]').trigger('click');
 	    			$('.select-target select').val('goods');
@@ -1994,9 +1980,7 @@ var productPage = {
     			if (style != '') {
 						window.men_styles.push({style: style.toLowerCase(), handle: product.handle, id: product.id, order: i})	
 					}
-					if ($targetSelect.find('option[value="men"]').length == 0) {
-						$targetSelect.append('<option value="men">Mens</option>');
-					}
+					
 					if (product.id == window.jsonProduct.id) {
 						$('ul.tabs > li > a[href="#men"]').trigger('click');
 						$('.select-target select').val('men');
@@ -2007,27 +1991,27 @@ var productPage = {
 
     if ($('#men').find('.each').length == 0) {
     	$('ul.tabs > li[data-tag="men"]').hide();
-    	$(".select-target option[value=men]").hide().attr('disabled', 'disabled');
+    	$(".select-target option[value=men]").remove();
     }
 
     if ($('#women').find('.each').length == 0) {
     	$('ul.tabs > li[data-tag="women"]').hide();
-    	$(".select-target option[value=women]").hide().attr('disabled', 'disabled');
+    	$(".select-target option[value=women]").remove();
     }
 
     if ($('#kids').find('.each').length == 0) {
     	$('ul.tabs > li[data-tag="kids"]').hide();
-    	$(".select-target option[value=kids]").hide().attr('disabled', 'disabled');
+    	$(".select-target option[value=kids]").remove();
     }
 
     if ($('#baby').find('.each').length == 0) {
     	$('ul.tabs > li[data-tag="baby"]').hide();
-    	$(".select-target option[value=baby]").hide().attr('disabled', 'disabled');
+    	$(".select-target option[value=baby]").remove();
     }
 
     if ($('#goods').find('.each').length == 0) {
     	$('ul.tabs > li[data-tag="goods"]').hide();
-    	$(".select-target option[value=goods]").hide().attr('disabled', 'disabled');
+    	$(".select-target option[value=goods]").remove();
     }
 
     $('.each p').matchHeight();
