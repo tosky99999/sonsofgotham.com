@@ -16,10 +16,26 @@ body.index {
   background: #fff url({{ 'bg-logos.png' | asset_url }});
 }
 
-// New container
+// CUSTOM CONTAINERS
 .container-max {
   max-width: 1440px;
   margin: 0 auto;
+}
+
+.sog-container-fluid,
+.sog-container-wide,
+.sog-container-narrow {
+  margin: 0 auto;
+  padding-left: $gutter;
+  padding-right: $gutter;
+}
+
+.sog-container-wide {
+  max-width: 1920px;
+}
+
+.sog-container-narrow {
+  max-width: 1440px;
 }
 
 // Product Grid
@@ -254,6 +270,12 @@ a.nav-tabs__item__link--active {
 
 // TOP BAR MENU 
 
+@media (max-width: 798px) {
+  .sticky_nav {
+    display: none !important;
+  }
+}
+
 .feature_image .header .top_bar .menu.right {
   display: none;
   a {
@@ -270,34 +292,51 @@ a.nav-tabs__item__link--active {
   }
 }
 
+.topbar-nav__link .icon {
+  @media (min-width: 1024px) {
+    margin-right: 3px;
+  }
+}
+
 // CUSTOM COLLECTION LIST
+.collection-list-section {
+  padding-top: $gutter * 2;
+  padding-bottom: $gutter * 2;
+  .row {
+    margin-bottom: 0;
+  }
+  [class*='col-'] {
+    margin-bottom: $gutter;
+  }
+}
+
 .custom-collection-list {
-  margin: 0 auto;
-  padding-left: $gutter;
-  padding-left: $gutter;
+  // margin: 0 auto;
+  // padding-left: $gutter;
+  // padding-left: $gutter;
 }
 
 .custom-collection-list__row {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-left: $gutter / -2;
-  margin-right: $gutter / -2;
+  // display: -ms-flexbox;
+  // display: flex;
+  // -ms-flex-wrap: wrap;
+  // flex-wrap: wrap;
+  // margin-left: $gutter / -2;
+  // margin-right: $gutter / -2;
 }
 
 .custom-collection-list__col {
-  -ms-flex: 0 0 50%;
-  flex: 0 0 50%;
-  max-width: 50%;
-  padding-left: $gutter / -2;
-  padding-right: $gutter / -2;
+  // -ms-flex: 0 0 50%;
+  // flex: 0 0 50%;
+  // max-width: 50%;
+  // padding-left: $gutter / -2;
+  // padding-right: $gutter / -2;
 }
 
 .custom-collection-list__picture {
 }
 
 .custom-collection-list__picture__img {
-  max-width: 100%;
-  height: auto;
+  // max-width: 100%;
+  // height: auto;
 }

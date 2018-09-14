@@ -11,20 +11,37 @@
 {%- endcomment -%}
 {%- if collections_per_row == 3 -%}
 
-  <div class="custom-collection-list">
-    <div class="custom-collection-list__row">
+  <div class="sog-container-wide">
+    <div class="row">
       {%- for block in section.blocks -%}
         {%- assign collection = collections[block.settings.feature_collection] -%}
-        <div class="custom-collection-list__col">
-          <a href="{{ collection.url }}" class="custom-collection-list__link">
-            <picture class="custom-collection-list__picture">
-              <source srcset="{{ block.settings.image | img_url: '250x250' }} 1x, {{ block.settings.image | img_url: '250x250', scale: 2 }} 2x" media="(min-width:768px)">
-              <img src="{{ block.settings.image | img_url: '180x180' }}"
-                  srcset="{{ block.settings.image | img_url: '180x180' }} 1x, {{ block.settings.image | img_url: '180x180', scale: 2 }} 2x"
-                  alt="{{ collection.title | escape }}" class="lazyload custom-collection-list__picture__img">
-            </picture>
-          </a>
-        </div>
+        {%- unless forloop.last -%}
+          <div class="col-xs-6 col-sm-4">
+            <a href="{{ collection.url }}" class="">
+              <picture class="custom-collection-list__picture">
+                <source srcset="{{ block.settings.image | img_url: '610x' }} 1x, {{ block.settings.image | img_url: '610x', scale: 2 }} 2x" media="(min-width:1600px)">
+                <source srcset="{{ block.settings.image | img_url: '480x' }} 1x, {{ block.settings.image | img_url: '480x', scale: 2 }} 2x" media="(min-width:1280px)">
+                <source srcset="{{ block.settings.image | img_url: '350x' }} 1x, {{ block.settings.image | img_url: '350x', scale: 2 }} 2x" media="(min-width:768px)">
+                <img src="{{ block.settings.image | img_url: '200x200', crop: 'center' }}"
+                    srcset="{{ block.settings.image | img_url: '200x200', crop: 'center' }} 1x, {{ block.settings.image | img_url: '200x200', scale: 2, crop: 'center' }} 2x"
+                    alt="{{ collection.title | escape }}" class="img-responsive lazyload">
+              </picture>
+            </a>
+          </div>
+        {%- else -%}
+          <div class="col-xs-6 col-sm-12">
+            <a href="{{ collection.url }}" class="">
+              <picture class="custom-collection-list__picture">
+                <source srcset="{{ block.settings.image | img_url: '1890x' }} 1x, {{ block.settings.image | img_url: '1890x', scale: 2 }} 2x" media="(min-width:1600px)">
+                <source srcset="{{ block.settings.image | img_url: '1410x' }} 1x, {{ block.settings.image | img_url: '1410x', scale: 2 }} 2x" media="(min-width:1280px)">
+                <source srcset="{{ block.settings.image | img_url: '994x' }} 1x, {{ block.settings.image | img_url: '994x', scale: 2 }} 2x" media="(min-width:768px)">
+                <img src="{{ block.settings.image | img_url: '200x200', crop: 'center' }}"
+                    srcset="{{ block.settings.image | img_url: '200x200', crop: 'center' }} 1x, {{ block.settings.image | img_url: '200x200', scale: 2, crop: 'center' }} 2x"
+                    alt="{{ collection.title | escape }}" class="img-responsive lazyload">
+              </picture>
+            </a>
+          </div>
+        {%- endunless -%}
       {%- endfor -%}
     </div>
   </div>
