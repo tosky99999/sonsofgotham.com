@@ -3,6 +3,7 @@
 - Draggable section
 {% endcomment %}
 
+{% comment %}
 {% assign default = '1400x' %}
 {% assign size1 = '480x' %}
 {% assign size2 = '765x' %}
@@ -14,9 +15,21 @@
 {% assign size8 = '1700x' %}
 {% assign size9 = '1900x' %}
 {% assign size10 = '2000x' %}
+{% endcomment %}
 
 <section id="banner-{{section.id}}" class="banner">
   {% if section.settings.image != nil %}
+    <picture>
+      <source srcset="{{ section.settings.image | img_url: '1920x', format: 'pjpg' }} 1x, {{ section.settings.image | img_url: '1920x', scale: 2, format: 'pjpg' }} 2x" media="(min-width:1600px)">
+      <source srcset="{{ section.settings.image | img_url: '1600x', format: 'pjpg' }} 1x, {{ section.settings.image | img_url: '1600x', scale: 2, format: 'pjpg' }} 2x" media="(min-width:1440px)">
+      <source srcset="{{ section.settings.image | img_url: '1024x', format: 'pjpg' }} 1x, {{ section.settings.image | img_url: '1024x', scale: 2, format: 'pjpg' }} 2x" media="(min-width:768px)">
+      <img src="{{ section.settings.image_mobile | img_url: '425x', format: 'pjpg' }}"
+           srcset="{{ section.settings.image_mobile | img_url: '425x', format: 'pjpg' }} 1x, {{ section.settings.image_mobile | img_url: '425x', scale: 2, format: 'pjpg' }} 2x"
+           alt="{{ section.settings.image.alt | escape }}"
+           class="lazyload {{ settings.image_loading_style }}">
+    </picture>
+
+{% comment %}
     <img  src="{{ section.settings.image | img_url: '100x', format: 'pjpg' }}"
           alt="{{ section.settings.image.alt | escape }}"
           class="lazyload {{ settings.image_loading_style }}"
@@ -34,8 +47,9 @@
           {{ section.settings.image | img_url: size8, format: 'pjpg' }} {{size8 | replace: 'x', 'w'}},
           {{ section.settings.image | img_url: size9, format: 'pjpg' }} {{size9 | replace: 'x', 'w'}},
           {{ section.settings.image | img_url: size10, format: 'pjpg' }} {{size10 | replace: 'x', 'w'}}"
-
            />
+{% endcomment %}
+
   {% else %}
     {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg placeholder-svg--banner' }}
   {% endif %}
@@ -94,6 +108,12 @@
       "type": "image_picker",
       "id": "image",
       "label": "Image",
+      "info": "1800 x 1000px recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image for mobile",
       "info": "1800 x 1000px recommended"
     },
     {
