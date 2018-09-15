@@ -1564,84 +1564,90 @@ var searchPage = {
 var $collectionLoading = $('#loading');
 var collectionPage = {
 	init: function(products) {
-		var html = '';
 
+    // Use new product grid renderer
+    // -----------------------------
+    sogUtils.renderProductGrid(products, '[data-collection-product-grid]');
+
+
+		var html = '';
 		var products_per_row = {{settings.products_per_row}};
 		products_per_row = 3;
 		var align_height = {{ settings.align_height }};
 		var collection_height = {{ settings.collection_height }};
 		var secondary_enable = {{settings.collection_secondary_image}};
-		for (var i = 0; i < products.length; i++) {
-			var product = products[i];
-			var edge_class = '';
-			var main_class = '';
-			var no_image = "{{ 'no-image.gif' | asset_url }}";
-			if (i % products_per_row == 0) {
-				edge_class = 'alpha';
-			} else if (i % products_per_row == (products_per_row - 1)) {
-				edge_class = 'omega';
-			}
 
-			// if (i % 2 == 0) {
-			// 	edge_class += ' even';
-			// } else {
-			// 	edge_class += ' odd';
-			// }
+		// for (var i = 0; i < products.length; i++) {
+		// 	var product = products[i];
+		// 	var edge_class = '';
+		// 	var main_class = '';
+		// 	var no_image = "{{ 'no-image.gif' | asset_url }}";
+		// 	if (i % products_per_row == 0) {
+		// 		edge_class = 'alpha';
+		// 	} else if (i % products_per_row == (products_per_row - 1)) {
+		// 		edge_class = 'omega';
+		// 	}
 
-			if (products_per_row == 2) {
-				main_class = 'thumbnail six columns ';
-			} else if (products_per_row == 3) {
-				main_class = 'thumbnail col-xs-12 col-sm-4  columns ';
-			} else if (products_per_row == 4) {
-				main_class = 'thumbnail three columns ';
-			} else {
-				main_class = 'thumbnail one-fifth column ';
-			}
+		// 	// if (i % 2 == 0) {
+		// 	// 	edge_class += ' even';
+		// 	// } else {
+		// 	// 	edge_class += ' odd';
+		// 	// }
 
-			html += '<div class="' + main_class + edge_class + '">';
-			html += '<div class="product-wrap">';
-			html += '<div class="relative product_image swap-{{ settings.collection_secondary_image }}">';
-			html += '<a href="/products/' + product['handle'] + '" itemprop="url">';
-			var maxWidth = (product['image'] != null? product['image']['width'] : 1000);
-			var maxHeight = (product['image'] != null ? product['image']['height'] : 1000);
-			if (align_height) {
-				maxWidth = maxWidth / maxHeight * collection_height;
-			}
-			var align_height_value = (maxWidth >= maxHeight ? 'width: 100%; height: auto;' : 'width: 100%;');
-			var image1 = (product['image'] != null ? product['image']['src'].replace(/\.(?=[^.]*$)/, "_x400.") : no_image.replace(/\.(?=[^.]*$)/, "_x400."));
-			html += '<div class="image__container" style=" max-width: ' + maxWidth + 'px; ">';
-			html += '<img src="' + image1 + '" alt="' + product['title'] + '" class="lazyload {{ settings.image_loading_style }}" style="' + align_height_value + ' max-width: ' + maxWidth + 'px;" data-sizes="auto" srcset="' + image1 + ' 1x, ' + image1.replace(/\.(?=[^.]*$)/, "@2x.") + ' 2x" />';
-			html += '</div>';
-			if (secondary_enable) {
-				html += '<div class="image__container" style="max-width: ' + (product['images'].length > 1 ? product['images'][0]['width'] : maxWidth) + 'px">';
-				var image2 = (product['images'].length > 1 ? product['images'][1]['src'].replace(/\.(?=[^.]*$)/, "_x400.") : image1);
-				html += '<img src="' + image2 + '" class="secondary lazyload" alt="' + product['title'] + '" srcset="' + image2 + ' 1x, ' + image2.replace(/\.(?=[^.]*$)/, "@2x.") + ' 2x" />';
-        html += '</div>';
-			}
-			html += '</a>';
+		// 	if (products_per_row == 2) {
+		// 		main_class = 'thumbnail six columns ';
+		// 	} else if (products_per_row == 3) {
+		// 		main_class = 'thumbnail col-xs-12 col-sm-4  columns ';
+		// 	} else if (products_per_row == 4) {
+		// 		main_class = 'thumbnail three columns ';
+		// 	} else {
+		// 		main_class = 'thumbnail one-fifth column ';
+		// 	}
 
- 			// Product Details
- 			html += '<div class="thumbnail-overlay">';
- 			html += '<a href="/products/' + product['handle'] + '" itemprop="url" class="hidden-product-link">' + product['title'] + '</a>';
- 			html += '<div class="info">';
- 			html += '<div class="product-details"><span class="title" itemprop="name">' + product['title'] + '</span><span class="price "><small style="margin-right: 4px"><em>from</em></small> <span class="money">$' + (product['variants'].length > 0 ? product['variants'][0]['price'] : '0.00') + '</span></span><span class="more_styles">More Styles Available ></span></div>';
- 			html += '</div>';
- 			html += '</div>';
- 			html += '<div class="banner_holder"></div>';
- 			html += '</div>';
+		// 	html += '<div class="' + main_class + edge_class + '">';
+		// 	html += '<div class="product-wrap">';
+		// 	html += '<div class="relative product_image swap-{{ settings.collection_secondary_image }}">';
+		// 	html += '<a href="/products/' + product['handle'] + '" itemprop="url">';
+		// 	var maxWidth = (product['image'] != null? product['image']['width'] : 1000);
+		// 	var maxHeight = (product['image'] != null ? product['image']['height'] : 1000);
+		// 	if (align_height) {
+		// 		maxWidth = maxWidth / maxHeight * collection_height;
+		// 	}
+		// 	var align_height_value = (maxWidth >= maxHeight ? 'width: 100%; height: auto;' : 'width: 100%;');
+		// 	var image1 = (product['image'] != null ? product['image']['src'].replace(/\.(?=[^.]*$)/, "_x400.") : no_image.replace(/\.(?=[^.]*$)/, "_x400."));
+		// 	html += '<div class="image__container" style=" max-width: ' + maxWidth + 'px; ">';
+		// 	html += '<img src="' + image1 + '" alt="' + product['title'] + '" class="lazyload {{ settings.image_loading_style }}" style="' + align_height_value + ' max-width: ' + maxWidth + 'px;" data-sizes="auto" srcset="' + image1 + ' 1x, ' + image1.replace(/\.(?=[^.]*$)/, "@2x.") + ' 2x" />';
+		// 	html += '</div>';
+		// 	if (secondary_enable) {
+		// 		html += '<div class="image__container" style="max-width: ' + (product['images'].length > 1 ? product['images'][0]['width'] : maxWidth) + 'px">';
+		// 		var image2 = (product['images'].length > 1 ? product['images'][1]['src'].replace(/\.(?=[^.]*$)/, "_x400.") : image1);
+		// 		html += '<img src="' + image2 + '" class="secondary lazyload" alt="' + product['title'] + '" srcset="' + image2 + ' 1x, ' + image2.replace(/\.(?=[^.]*$)/, "@2x.") + ' 2x" />';
+  //       html += '</div>';
+		// 	}
+		// 	html += '</a>';
 
-  		html += '<a class="product-info__caption hidden" href="/collections/' + window.collection.handle + '/products/' + product.handle + '" itemprop="url">';
-    	html += '<div class="product-details"><span class="title" itemprop="name">' + product['title'] + '</span> <span class="price"><small><em>from</em></small><span class="money">$' + (product['variants'].length > 0 ? product['variants'][0]['price'] : '0.00') + '</span></span></div>';
-    	html += '</a>';
+ 	// 		// Product Details
+ 	// 		html += '<div class="thumbnail-overlay">';
+ 	// 		html += '<a href="/products/' + product['handle'] + '" itemprop="url" class="hidden-product-link">' + product['title'] + '</a>';
+ 	// 		html += '<div class="info">';
+ 	// 		html += '<div class="product-details"><span class="title" itemprop="name">' + product['title'] + '</span><span class="price "><small style="margin-right: 4px"><em>from</em></small> <span class="money">$' + (product['variants'].length > 0 ? product['variants'][0]['price'] : '0.00') + '</span></span><span class="more_styles">More Styles Available ></span></div>';
+ 	// 		html += '</div>';
+ 	// 		html += '</div>';
+ 	// 		html += '<div class="banner_holder"></div>';
+ 	// 		html += '</div>';
 
-			html += '</div>';
-			html += '</div>';
-			if (i > 0 && i % (products_per_row == products_per_row - 1)) {
-				html += '<br class="clear product_clear">';
-			}
-		}
+  // 		html += '<a class="product-info__caption hidden" href="/collections/' + window.collection.handle + '/products/' + product.handle + '" itemprop="url">';
+  //   	html += '<div class="product-details"><span class="title" itemprop="name">' + product['title'] + '</span> <span class="price"><small><em>from</em></small><span class="money">$' + (product['variants'].length > 0 ? product['variants'][0]['price'] : '0.00') + '</span></span></div>';
+  //   	html += '</a>';
 
-		$('.collection-results .product-list').append(html);
+		// 	html += '</div>';
+		// 	html += '</div>';
+		// 	if (i > 0 && i % (products_per_row == products_per_row - 1)) {
+		// 		html += '<br class="clear product_clear">';
+		// 	}
+		// }
+
+		// $('.collection-results .product-list').append(html);
 
 		// if (window.collection_more && window.collection_page == 0) {
 		if (window.collection_more) {
@@ -5920,3 +5926,54 @@ var color_list = {
 	turquoise: '#40E0D0',
 	yellow: '#FFFF00'
 }
+
+/**
+ * Global utility functions for SOG.
+ */
+var sogUtils = {
+  productCardTemplate: document.querySelector('[data-product-card-template]').innerHTML,
+  noImageUrl: '{{ 'no-img.png' | asset_url }}',
+
+  /**
+   * @param {Object[]} products - An array of Shopify product objects.
+   * @param {string} containerSelector - The element where to insert the generated HTML.
+   */
+  renderProductGrid: function(products, containerSelector) {
+    const container = document.querySelector(containerSelector);
+
+    if (container === null) { return; }
+    if (!Array.isArray(products) || !products.length) { return; }
+
+    let items = '';
+    products.forEach(function(product) {
+      let item = sogUtils.productCardTemplate;
+
+      item = item.replace(/{url}/g, '/products/' + product.handle);
+      item = item.replace(/{title}/g, product.title);
+      // item = item.replace(/{price_min}/g, Shopify.formatMoney(product.variants.reduce(function(v, p) { let x = parseFloat(p.price); return x < v ? x : v }).price, Shopify.money_format));
+      item = item.replace(/{price_min}/g, Shopify.formatMoney(product.variants[0].price, Shopify.money_format));
+
+      let imageUrl1 = product.images[0] !== undefined ? product.images[0].src : sogUtils.noImageUrl;
+      let imageUrl2 = product.images[1] !== undefined ? product.images[1].src : imageUrl1;
+
+      [
+        [ /{image1_1x}/g, '_180x180$1',     /{image1_1x_hover}/g, '_180x180$1'    ],
+        [ /{image1_2x}/g, '_180x180@2x$1',  /{image1_2x_hover}/g, '_180x180@2x$1' ],
+        [ /{image2_1x}/g, '_250x250$1',     /{image2_1x_hover}/g, '_250x250$1'    ],
+        [ /{image2_2x}/g, '_250x250@2x$1',  /{image2_2x_hover}/g, '_250x250@2x$1' ],
+        [ /{image3_1x}/g, '_330x330$1',     /{image3_1x_hover}/g, '_330x330$1'    ],
+        [ /{image3_2x}/g, '_330x330@2x$1',  /{image3_2x_hover}/g, '_330x330@2x$1' ],
+        [ /{image4_1x}/g, '_500x500$1',     /{image4_1x_hover}/g, '_500x500$1'    ],
+        [ /{image4_2x}/g, '_500x500@2x$1',  /{image4_2x_hover}/g, '_500x500@2x$1' ]
+      ].forEach(function(sizes) {
+        item = item.replace(sizes[0], imageUrl1.replace(/(\.[^.]*)$/, sizes[1]));
+        item = item.replace(sizes[2], imageUrl2.replace(/(\.[^.]*)$/, sizes[3]));
+      });
+
+      items += item;
+    });
+
+    container.insertAdjacentHTML('beforeend', items);
+  }
+
+};

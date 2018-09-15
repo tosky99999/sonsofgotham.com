@@ -71,7 +71,7 @@
       {% if section.settings.display_collection_title and section.settings.featured_collection_image == false %}
         <div class="col-xs-12 col-sm-6 columns">
           {% assign vendor_handle = collection.title | handleize %}
-          
+
           {% capture vendor_logo %}vendor-{{ vendor_handle }}.png{% endcapture %}
           {% if collection.all_products_count > 0 and collection.products.first.vendor == collection.title %}
             <img src="{{ vendor_logo | asset_img_url: 'x100'}}" height="40px" style="height: 35px;margin-right: 15px;margin-bottom: 15px">
@@ -130,12 +130,12 @@
 
       {% if sidebar %}
         {% include 'sidebar' %}
-        <div class="col-xs-12 col-sm-9 columns collection-results">
+        <div class="col-xs-12 col-sm-9 columns collection-results product-grid product-grid--3s">
       {% else %}
         <div class="sixteen columns collection-results">
       {% endif %}
-        <div itemtype="http://schema.org/ItemList" class="row product-list collection-matrix clearfix">
-          
+        <div itemtype="http://schema.org/ItemList" class="row product-list collection-matrix clearfix product-grid__row" data-collection-product-grid>
+
       {% if settings.pagination_type == 'basic_pagination' %}
         {% include 'pagination' with sidebar %}
       {% endif %}
