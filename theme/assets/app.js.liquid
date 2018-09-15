@@ -5950,7 +5950,8 @@ var sogUtils = {
 
       item = item.replace(/{url}/g, '/products/' + product.handle);
       item = item.replace(/{title}/g, product.title);
-      item = item.replace(/{price_min}/g, Shopify.formatMoney(product.variants.reduce(function(v, p) { let x = parseFloat(p.price); return x < v ? x : v }).price, Shopify.money_format));
+      // item = item.replace(/{price_min}/g, Shopify.formatMoney(product.variants.reduce(function(v, p) { let x = parseFloat(p.price); return x < v ? x : v }).price, Shopify.money_format));
+      item = item.replace(/{price_min}/g, Shopify.formatMoney(product.variants[0].price, Shopify.money_format));
 
       let imageUrl1 = product.images[0] !== undefined ? product.images[0].src : sogUtils.noImageUrl;
       let imageUrl2 = product.images[1] !== undefined ? product.images[1].src : imageUrl1;
