@@ -88,8 +88,8 @@
     {% endif %}
     {{ content_for_header }}
 
-    
-    
+
+
   {% comment %}
   {{ 'jquery.min.js' | asset_url | script_tag }}
   <script type="text/javascript" src="{{ 'bootstrap.min.js' | asset_url }}" async></script>
@@ -100,7 +100,7 @@
   <script type="text/javascript" src="{{ 'bootstrap-select.min.js' | asset_url }}" async></script>
   {% endcomment %}
   </head>
-  
+
 
   <body class="{{ template | replace: '.', '-' | handle }}">
 
@@ -139,7 +139,7 @@
     {% section 'elasticsearch-section' %}
 
     {% include 'insta-feed' %}
-    
+
     {% unless settings.secondary_newsletter_banner == false %}
       {% section 'newsletter' %}
     {% endunless %}
@@ -155,7 +155,7 @@
     {% if settings.quick_shop_enabled %}
       {% include 'popup-quick-shop' %}
     {% endif %}
-    
+
     {% if settings.disqus_enabled %}
       {% if template contains "blog" or template contains "article" or template contains "index" %}
         <script id="dsq-count-scr" src="//{{ settings.disqus_shortname }}.disqus.com/count.js" async></script>
@@ -210,6 +210,12 @@
       {{ settings.custom_scripts }}
     </script>
 
+    {%- comment -%}
+      Include product card JS template here because search is everywhere.
+    {%- endcomment -%}
+    <script type="text/template" data-product-card-template>
+      {% include 'product-card', as_template: true %}
+    </script>
   </body>
 </html>
 {% endcapture %}

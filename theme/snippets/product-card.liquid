@@ -1,3 +1,63 @@
+{%- comment -%}
+  Include as a JS template.
+  ------------------------------------------------------------------------------
+  Variables to be replaced with JS:
+
+    {url}
+    {title}
+    {price_min}
+
+    {image1_1x}          default image  size: 180x180
+    {image1_1x_hover}    hover image    size: 180x180
+    {image1_2x}          default image  size: 180x180  scale: 2
+    {image1_2x_hover}    hover image    size: 180x180  scale: 2
+
+    {image2_1x}          default image  size: 250x250
+    {image2_1x_hover}    hover image    size: 250x250
+    {image2_2x}          default image  size: 250x250  scale: 2
+    {image2_2x_hover}    hover image    size: 250x250  scale: 2
+
+    {image3_1x}          default image  size: 330x330
+    {image3_1x_hover}    hover image    size: 330x330
+    {image3_2x}          default image  size: 330x330  scale: 2
+    {image3_2x_hover}    hover image    size: 330x330  scale: 2
+
+    {image4_1x}          default image  size: 500x500
+    {image4_1x_hover}    hover image    size: 500x500
+    {image4_2x}          default image  size: 500x500  scale: 2
+    {image4_2x_hover}    hover image    size: 500x500  scale: 2
+{%- endcomment -%}
+{%- if as_template != blank -%}
+  <div class="product-grid__col">
+    <a href="{url}" class="product-grid__col__content product-card product-card--hoverable">
+      <picture class="product-card__picture product-card__picture--default">
+        <source srcset="{image4_1x} 1x, {image4_2x} 2x" media="(min-width:1600px)">
+        <source srcset="{image3_1x} 1x, {image3_2x} 2x" media="(min-width:1280px)">
+        <source srcset="{image2_1x} 1x, {image2_2x} 2x" media="(min-width:1024px)">
+        <img src="{image1_1x}" srcset="{image1_1x} 1x, {image1_2x} 2x" alt="" class="lazyload product-card__picture__image">
+      </picture>
+      <picture class="product-card__picture product-card__picture--hover">
+        <source srcset="{image4_1x_hover} 1x, {image4_2x_hover} 2x" media="(min-width:1600px)">
+        <source srcset="{image3_1x_hover} 1x, {image3_2x_hover} 2x" media="(min-width:1280px)">
+        <source srcset="{image2_1x_hover} 1x, {image2_2x_hover} 2x" media="(min-width:1024px)">
+        <img src="{image1_1x_hover}" srcset="{image1_1x_hover} 1x, {image1_2x_hover} 2x" alt="" class="lazyload product-card__picture__image">
+      </picture>
+      <div class="product-card__overlay">
+        <div class="product-card__info product-card-info">
+          <h3 class="product-card-info__title">{title}</h3>
+          <p class="product-card-info__price"><i>from</i> <span>{price_min}</span></p>
+          <p class="product-card-info__more">More Styles Available &gt;</p>
+        </div>
+      </div>
+    </a>
+  </div>
+{%- endif -%}
+
+{%- comment -%}
+  Include as a template partial.
+  ------------------------------------------------------------------------------
+  Required variable: `product`
+{%- endcomment -%}
 {%- if product != blank -%}
   <div class="product-grid__col">
     <a href="{{ product.url | within: collection }}" class="product-grid__col__content product-card {% if product.images.size > 1%}product-card--hoverable{% endif %}">
