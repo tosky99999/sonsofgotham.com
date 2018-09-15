@@ -12,7 +12,7 @@
         data-product="{{ product | json | escape }}"
         {% if settings.limit_quantity or settings.display_inventory_left %}
           data-variant-inventory='[{%- for v in product.variants -%}{"id":{{v.id}},"inventory_quantity":{{v.inventory_quantity}},"inventory_management":"{{v.inventory_management}}","inventory_policy":"{{v.inventory_policy}}"}{% if forloop.last == false %},{% endif %}{%- endfor -%}]'
-        {% endif %}        
+        {% endif %}
         data-product-id="{{ product.id }}"
         >
 
@@ -98,22 +98,22 @@
               {% endif %}
             </p>
           </div>
-          <div class="col-xs-8 col-sm-8 rewards-sizechart">
-            <div class="row">
-              <div class="col-xs-12 col-sm-6">
+          <div class="col-xs-8 col-sm-8 text-right rewards-sizechart">
+            {% comment %}<div class="row">{% endcomment %}
+              {% comment %}<div class="col-xs-12 col-sm-6 text-">{% endcomment %}
                 <a href="javascript:void(rewardsmgr_open());" id="rewards-logo" class="link_rewards-logo">
                   <img src="{{ 'rewards-logo-sm.png' | asset_img_url: '350x' }}" alt="Sons of Gotham Rewards">
                 </a>
-              </div>
-              <div class="col-xs-5 col-sm-6 text-right"></div>
-            </div>
+              {% comment %}</div>{% endcomment %}
+              {% comment %}<div class="col-xs-5 col-sm-6 text-right"></div>{% endcomment %}
+            {% comment %}</div>{% endcomment %}
           </div>
         </div>
       </div>
 
       {% include 'product-notify-me' %}
     {% endif %}
-              
+
     <div class="qty-cart-btn">
       {% if settings.display_product_quantity %}
         <div class="left product-quantity-box">
