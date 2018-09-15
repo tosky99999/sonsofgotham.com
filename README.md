@@ -22,7 +22,7 @@ This is the repository for all themes and apps used in Sons of Gotham Shopify st
 
 ```
 .
-└── theme
+└── theme                - the current Shopify theme
     ├── assets
     ├── config
     ├── layout
