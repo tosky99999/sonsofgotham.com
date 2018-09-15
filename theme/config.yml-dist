@@ -1,0 +1,13 @@
+development:
+  password: --GET-FROM-ADMIN--
+  theme_id: "--YOUR-THEME-ID--"
+  store: sonsofgotham.myshopify.com
+  ignore_files:
+    - config/settings_data.json
+production:
+  password: --GET-FROM-ADMIN--
+  theme_id: "37259739209"
+  store: sonsofgotham.myshopify.com
+  readonly: true
+  ignore_files:
+    - config/settings_data.json
