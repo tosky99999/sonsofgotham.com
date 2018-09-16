@@ -1759,7 +1759,7 @@ var productPage = {
       "friction": 0.15,
       "arrowShape": arrowSize
     });
-
+    console.log(product);
     if (product) {
       $(".js-product_section .product_form_options").each(function() {
        new Shopify.OptionSelectors($(this).data("select-id"), { product: product, onVariantSelected: selectCallback, enableHistoryState: $(this).data("enable-state") });
@@ -2196,6 +2196,23 @@ var productPage = {
 		$('.variant-option').on('click', function() {
 			productPage.checkOptions(window.selected_product);
 		});
+		$('.product_form .single-option-selector').on('change', function() {
+			if ($('.product_form .single-option-selector').length == 1) {
+				var variant_id = $('.product_form .single-option-selector option:selected').data('variant-id');
+				var $productForm = $(this).parents('form');
+				$('.product_form .multi_select').val(variant_id);
+				for (var i = 0; i < window.selected_product.variants.length; i++) {
+					if (window.selected_product.variants[i].id == variant_id) {
+						if (window.selected_product.variants[i].price > 0) {
+				      $productForm.find('.current_price').html('<span class="money">' + Shopify.formatMoney(window.selected_product.variants[i].price, $productForm.data('money-format')) + '</span>');
+				    } else {
+				      $productForm.find('.current_price').html({{ settings.free_price_text | json }});
+				    }
+				    break;
+					}
+				}
+			}
+		});
 		/*----------  End - Make Cart Button Active  ----------*/
   },
   checkOptions: function(product) {
@@ -2493,7 +2510,7 @@ var productPage = {
         htmlBodySelect += '<option value="' + bodyCode.toLowerCase() + '" data-handle="' + product.handle + '" data-id="' + product.id + '">' + product_code_tbl[bodyCode] + '</option>';
         num_codes++;
       }
-
+      console.log(num_codes);
       if (num_codes > 0) {
       	$bodySelect.html(htmlBodySelect);
 
@@ -2686,43 +2703,6 @@ var productPage = {
 		    }
 		  }
 		});
-    // $('.js-remodal-lightbox').each(function() {
-    // 	var $currentLightbox = $(this);
-	   //  var $currentLightboxGallery = $currentLightbox.find('.lightbox-gallery');
-	   //  var $currentLightboxImages = $('.lightbox[rel=' + group + ']');
-	   //  var activate_zoom = $('body').find('.product_gallery').data('zoom');
-	   //  var arrowShow = $currentLightboxImages.length === 1 ? false : true;
-	   //  var group = $(this).data('rel');
-	   //  var draggable = true;
-	   //  var loader = "{{ 'ajax-loader.gif' | asset_img_url: 'master' }}";
-	   //  $currentLightbox.attr('data-zoom', activate_zoom);
-
-	   //  if (activate_zoom && $(window).width() <= 798) {
-	   //    draggable = false;
-	   //  } else {
-	   //    draggable = $currentLightboxImages.length === 1 ? false : true;
-	   //  }
-
-	   //  if ($currentLightboxGallery.hasClass('flickity-enabled')) {
-	   //  	$currentLightboxGallery.flickity('destroy');
-	   //  }
-	   //  $currentLightboxGallery.empty();
-	   //  //Add gallery when lightbox opens
-	   //  // if (!$currentLightboxGallery.hasClass('flickity-enabled')){
-	   //    var $lightboxGallery = $currentLightboxGallery.flickity({
-	   //      "wrapAround": "true",
-	   //      "cellAlign": "left",
-	   //      "contain": true,
-	   //      "imagesLoaded": true,
-	   //      // "lazyLoad": 2,
-	   //      "pageDots": usePageDots,
-	   //      "draggable": draggable,
-	   //      "prevNextButtons": arrowShow,
-	   //      "selectedAttraction": 0.01,
-	   //      "friction": 0.15,
-	   //      "arrowShape": arrowSize
-	   //    });
-    // });
 
     /*----------  Product Form  ----------*/
     var template = '';
@@ -2745,12 +2725,21 @@ var productPage = {
        + '" data-shop-currency="' + productSettings.currency
        + '" data-select-id="product-select-' + product.id + product_form + productSettings.section_id + productSettings.block_id
        + '" data-enable-state="true"'
-       + ' data-product="' + product
+       + ' data-product="'
        + '" data-product-id="' + product.id
        +'">';
 
-        if ( product.options.length > 1 ) {
+        if ( product.options.length > 0 ) {
           template += '<div class="select">';
+          	if(product.options.length == 1) {
+          		template += '<div class="selector-wrapper">';
+          		template += '<select class="single-option-selector" data-option="option1" id="product-select-' + product.id + product_form + productSettings.section_id + productSettings.block_id + '-option-0">';
+          		for( v of product.variants) {
+                template += '<option value="' + v.option1 + '" data-variant-id="' + v.id + '">' + v.option1 + '</option>';
+              }
+          		template += '</select>';
+          		template += '</div>';
+          	}
             template += '<select id="product-select-' + product.id + product_form + productSettings.section_id + productSettings.block_id
               + '" name="id" class="multi_select">';
               for( v of product.variants) {
@@ -2758,17 +2747,20 @@ var productPage = {
               }
             template += '</select>';
           template += '</div>';
-        } else if ( product.options.length == 1 && product.options.length > 1 || product.options.length == 1 && product.options[0]['name'] != 'Title') {
-          template += '<div class="select">';
-            template += '<label>' + product.options[0]['name'] + '</label>';
-            template += '<select id="product-select-' + product.id + product_form + productSettings.section_id + productSettings.block_id
-              + '" name="id">';
-              for( v of product.variants) {
-                template += '<option value="' + v.id + '" data-sku="' + v.sku + '" >' + v.title + '</option>';
-              }
-            template += '</select>';
-          template += '</div>';
-        } else {
+        } 
+        // else if ( product.options.length == 1 && product.options.length > 1 || product.options.length == 1 && product.options[0] != 'Title') {
+        //   template += '<div class="select">';
+        //     template += '<label>' + product.options[0] + '</label>';
+        //     template += '<select id="product-select-' + product.id + product_form + productSettings.section_id + productSettings.block_id
+        //       + '" name="id">';
+        //       for( v of product.variants) {
+        //         template += '<option value="' + v.id + '" data-sku="' + v.sku + '" >' + v.title + '</option>';
+        //       }
+        //     template += '</select>';
+        //   template += '</div>';
+        // }
+        
+        else {
           template += '<input type="hidden" name="id" value="' + variant.id + '" />';
         }
 
@@ -2984,6 +2976,7 @@ var productPage = {
     /*----------  End - Product Form  ----------*/
 
     $('.product_section .product-form').html(template);
+    $('#product-form-' + product.id).attr('data-product', JSON.stringify(product));
     $('.product-container').removeAttr('class').addClass('product-container product-' + product.id);
     productPage.init(product);
   },
