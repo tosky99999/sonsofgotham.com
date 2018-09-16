@@ -3955,7 +3955,7 @@ $(function() {
   		$.ajax({
 				method: "GET",
 				url: "https://search.sonsofgotham.com/products",
-				data: { design_code: design_code, vendor: vendor, per_page: 12 }
+				data: { design_code: design_code, vendor: vendor, per_page: 12, prt_id: product.id }
 			})
 			.done(function( result ) {
 				console.log(result);
