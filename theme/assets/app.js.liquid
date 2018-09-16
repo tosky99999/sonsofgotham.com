@@ -5745,7 +5745,7 @@ var sogUtils = {
       // item = item.replace(/{price_min}/g, Shopify.formatMoney(product.variants[0].price, Shopify.money_format));
 
       // Search and collection endpoints return different formats
-      item = item.replace(/{price_min}/g, Shopify.formatMoney(Array.isArray(product.variants) && product.variants.length ? product.variants[0].price : product.price , Shopify.money_format));
+      item = item.replace(/{price_min}/g, Shopify.formatMoney(Array.isArray(product.variants) && product.variants.length ? product.variants[0].price : product.price * 100 , Shopify.money_format));
 
       // Search and collection endpoints return different formats
       let imageUrl1 = sogUtils.noImageUrl;
