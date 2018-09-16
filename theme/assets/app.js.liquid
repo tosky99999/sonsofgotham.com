@@ -2020,6 +2020,10 @@ var productPage = {
     	$(".select-target option[value=goods]").remove();
     }
 
+    if (window.men_styles.length == 0 && window.women_styles.length == 0 && window.kids_styles.length == 0 && window.baby_styles.length == 0 && window.goods_styles.length == 0) {
+    	$('#department_body, #tabs_section').remove();
+    }
+
     $('.each p').matchHeight();
 
     $('#men .each:first').addClass('active');
@@ -2168,23 +2172,6 @@ var productPage = {
   	} else if (content == 'goods') {
   		productPage.addStyleOptionsList(window.goods_styles);
   	}
-
-  	// $('.select-bodystyle option').each(function() {
-   //  	var style = $(this).val();
-   //  	if (content == 'men' && window.men_styles.indexOf(style) > -1) {
-   //  		$(this).show().removeAttr('disabled');
-   //  	} else if (content == 'women' && window.women_styles.indexOf(style) > -1) {
-   //  		$(this).show().removeAttr('disabled');
-   //  	} else if (content == 'kids' && window.kids_styles.indexOf(style) > -1) {
-   //  		$(this).show().removeAttr('disabled');
-   //  	} else if (content == 'baby' && window.baby_styles.indexOf(style) > -1) {
-   //  		$(this).show().removeAttr('disabled');
-   //  	} else if (content == 'goods' && window.goods_styles.indexOf(style) > -1) {
-   //  		$(this).show().removeAttr('disabled');
-   //  	} else {
-   //  		$(this).hide().attr("disabled", "disabled");
-   //  	}
-   //  });
   },
   initOptionActions: function(product) {
   	/*----------  Make Cart Button Active When All options are selected  ----------*/
