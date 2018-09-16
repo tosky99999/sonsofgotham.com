@@ -1062,6 +1062,12 @@ var searchPage = {
 		var secondary_enable = true;
 		var no_image = "{{ 'no-image.gif' | asset_url }}";
 		// if (products.length > 0) {$notice.html('');}
+
+    // Use new product grid renderer
+    // -----------------------------
+    sogUtils.renderProductGrid(products, '[data-search-product-grid]');
+
+{% comment %}
 		for (var i = 0; i < products.length; i++) {
 			var product = products[i];
 			var edge_class = '';
@@ -1138,6 +1144,7 @@ var searchPage = {
 			}
 			$notice.append(html);
 		}
+{% endcomment %}
 
 		$('.search-pagination').remove();
 		if (window.search_page > 0 || window.search_more) {
@@ -5735,10 +5742,21 @@ var sogUtils = {
       item = item.replace(/{url}/g, '/products/' + product.handle);
       item = item.replace(/{title}/g, product.title);
       // item = item.replace(/{price_min}/g, Shopify.formatMoney(product.variants.reduce(function(v, p) { let x = parseFloat(p.price); return x < v ? x : v }).price, Shopify.money_format));
-      item = item.replace(/{price_min}/g, Shopify.formatMoney(product.variants[0].price, Shopify.money_format));
+      // item = item.replace(/{price_min}/g, Shopify.formatMoney(product.variants[0].price, Shopify.money_format));
 
-      let imageUrl1 = product.images[0] !== undefined ? product.images[0].src : sogUtils.noImageUrl;
-      let imageUrl2 = product.images[1] !== undefined ? product.images[1].src : imageUrl1;
+      // Search and collection endpoints return different formats
+      item = item.replace(/{price_min}/g, Shopify.formatMoney(Array.isArray(product.variants) && product.variants.length ? product.variants[0].price : product.price , Shopify.money_format));
+
+      // Search and collection endpoints return different formats
+      let imageUrl1 = sogUtils.noImageUrl;
+      let imageUrl2;
+      if (Array.isArray(product.images) && product.images.length) {
+        imageUrl1 = product.images[0].src;
+        imageUrl2 = product.images[1] !== undefined ? product.images[1].src : imageUrl1;
+      } else if (product.image1 !== undefined) {
+        imageUrl1 = product.image1.src;
+        imageUrl2 = product.image2 !== null ? product.image2.src : imageUrl1;
+      }
 
       [
         [ /{image1_1x}/g, '_180x180$1',     /{image1_1x_hover}/g, '_180x180$1'    ],
