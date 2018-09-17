@@ -105,7 +105,7 @@
   </head>
 
 
-  <body class="{{ template | replace: '.', '-' | handle }}">
+  <body class="{{ template | replace: '.', '-' | handle }} {% if collection %}collection-{{ collection.handle }}{% endif %}">
 
     {% section 'header' %}
 
