@@ -105,7 +105,7 @@
         
         <h1 class="product_name" itemprop="name">{{ product.title }}</h1>
         <div class="row">
-          <div class="col-xs-12 col-sm-6 colums alpha">
+          <div class="col-xs-12 col-sm-6 colums alpha" id="tabs_section">
             <ul class="tabs design-group" style="display: none;">
               <li data-tag="men"><a href="#men">Men's</a></li>
               <li data-tag="women"><a href="#women" class="active">Women's</a></li>
@@ -200,7 +200,7 @@
                 <a href="#size-chart" class="size_chart" data-remodal-target="size-chart" data-no-instant>{{ 'products.product.size_chart' | t }} <span class="icon-right-arrow"></span></a>
               {% endif %}
 
-              <div>
+              <div style="min-height: 80px" id="department_body">
                 <div class="col-xs-12 col-sm-4 select-target">
                   <span class="option_title">Department:</span>
                   <select style="margin-bottom: 30px">
