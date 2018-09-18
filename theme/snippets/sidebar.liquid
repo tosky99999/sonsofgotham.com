@@ -197,8 +197,8 @@
                           {% endif %}
                         {% endfor %}
                         <li>
-                          <label data-option-filter data-toggle="tooltip" data-placement="center" title="{{color_name}}">
-                            <input type="checkbox" value="{{tag}}" name="{{filter_name}}{{tag}}" id="{{filter_name}}{{tag}}" class="styled-checkbox" style="background-image: url({{ tag | handleize | downcase | append: '.png' | asset_img_url: '50x' }}); background-color: {% if a_color == '' or a_color == blank %}green{% else %}{% if a_color == 'multi-color' %}red;background: -webkit-linear-gradient(left, orange , yellow, green, cyan, blue, violet);background: -o-linear-gradient(right, orange, yellow, green, cyan, blue, violet);background: -moz-linear-gradient(right, orange, yellow, green, cyan, blue, violet);background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);{% else %}{{a_color}}{% endif %}{% endif %}">
+                          <label data-option-filter data-toggle="tooltip" data-placement="center" title="{% if color_name != '' %}{{color_name}}{% elsif tag_name == 'color' and color_name == '' %}{{ tag | replace: 'color-', '' | replace: '-', ' ' }}{% endif %}">
+                            <input type="checkbox" value="{{tag}}" name="{{filter_name}}{{tag}}" id="{{filter_name}}{{tag}}" class="styled-checkbox" style="background-image: url({{ tag | handleize | downcase | append: '.png' | asset_img_url: '50x' }}); background-color: {% if a_color == '' or a_color == blank %}white{% else %}{% if a_color == 'multi-color' %}red;background: -webkit-linear-gradient(left, orange , yellow, green, cyan, blue, violet);background: -o-linear-gradient(right, orange, yellow, green, cyan, blue, violet);background: -moz-linear-gradient(right, orange, yellow, green, cyan, blue, violet);background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);{% else %}{{a_color}}{% endif %}{% endif %}">
                           </label>
                         </li>
                       {% else %}
@@ -219,17 +219,18 @@
                         {% if tag == current_tag %}
                           {% if block.settings.enable_filter_swatches %}
                             {% assign a_color = '' %}
-                        
+                            {% assign color_name = '' %}
                             {% for color in colors_list %}
                               {% if color contains tag %}
                                 {% assign color_arr = color | split: ':' %}
+                                {% assign color_name = color_arr[0] | replace: 'color-', '' | replace: '-', ' ' %}
                                 {% assign a_color = color_arr[1] %}
                                 {% break %}
                               {% endif %}
                             {% endfor %}
                             <li>
-                              <label data-option-filter>
-                                <input checked type="checkbox" value="{{tag}}" name="{{filter_name}}{{tag}}" id="{{filter_name}}{{tag}}" class="styled-checkbox" style="background-image: url({{ tag | handleize | downcase | append: '.png' | asset_img_url: '50x' }}); background-color: {% if a_color == '' or a_color == blank %}green{% else %}{{a_color}}{% endif %}">
+                              <label data-option-filter data-toggle="tooltip" data-placement="center" title="{% if color_name != '' %}{{color_name}}{% elsif tag_name == 'color' and color_name == '' %}{{ tag | replace: 'color-', '' | replace: '-', ' ' }}{% endif %}">
+                                <input checked type="checkbox" value="{{tag}}" name="{{filter_name}}{{tag}}" id="{{filter_name}}{{tag}}" class="styled-checkbox" style="background-image: url({{ tag | handleize | downcase | append: '.png' | asset_img_url: '50x' }}); background-color: {% if a_color == '' or a_color == blank %}white{% else %}{{a_color}}{% endif %}">
                               </label>
                             </li>
                           {% else %}
