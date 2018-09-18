@@ -1925,7 +1925,7 @@ var productPage = {
   		var order = styles_list[i].order;
   		$bodySelect.append('<option value="' + styles_list[i].style + '" data-handle="' + handle + '" data-id="' + id + '" data-order="' + order + '">' + product_code_tbl[style] + '</option>');
   	}
-
+  	$bodySelect.val($('.person.active .each.active').data('code'));
     $bodySelect.on('change', function() {
       // let data = $($bodySelect[0].options[$bodySelect[0].selectedIndex]).data();
       var product = window.testProducts[$bodySelect.find('option').eq($bodySelect[0].selectedIndex).data('order')];
@@ -2356,6 +2356,14 @@ var productPage = {
   },
 
   updatePopfunkProductImages: function(product) {
+  	// Push URL history
+  	var pathname = window.location.pathname;
+  	pathname = pathname.split('/');
+  	pathname[pathname.length - 1] = product.handle;
+  	pathname = pathname.join('/');
+  	history.pushState({query: product.title + ' - Sons of Gotham'}, history.state && history.state.query ? history.state.query : null, pathname + '?variant=' + product.variants[0].id);
+
+
     var template = '';
     var featured_image = product.featured_image || product.variants[0].featured_image;
     var thumbnail_position = productSettings.product_thumbs ? productSettings.thumbnail_position : '';
@@ -2373,8 +2381,11 @@ var productPage = {
     var original_image_width = '1000px';
     var original_image_height = '1000px';
 
-    /*--------  Product Vendor, Title, Description And Yotpo --------- */
-
+    /*--------  Product SKU, Vendor, Title, Description And Yotpo --------- */
+    if ((typeof product.variants != 'undefined') && product.variants != null) {
+    	$('.product_section .sku-yotop .sku').text(product.variants[0].sku);	
+    }
+    
     $('.product_section .product_name').text(product.title);
     $('.product_section .description').html(product.body_html);
     $('.yotpo.bottomLine').attr('data-product-id', product.id);
