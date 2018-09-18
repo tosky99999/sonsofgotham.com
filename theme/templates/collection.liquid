@@ -1,14 +1,22 @@
-{% comment %}
-  The contents of the collection.liquid template can be found in /sections/collection-template.liquid
-{% endcomment %}
+{%- case collection.handle -%}
+  {%- when 'men' -%}
+    {% section 'collection-men' %}
+  {%- when 'women' -%}
+    {% section 'collection-women' %}
+  {%- when 'kids' -%}
+    {% section 'collection-kids' %}
 
-<script type="text/javascript">
-	window.collection = {{ collection | json }};
-	window.collection_desc = "{{collection.description | strip_newlines | escape }}";
-	
-	{% if current_tags %}
-    window.current_tags = '{{ current_tags | join: ','}}';
-  {% endif %}
-</script>
-
-{% section 'collection-template-test' %}
+  {%- else -%}
+    {% comment %}
+      The contents of the collection.liquid template can be found in /sections/collection-template.liquid
+    {% endcomment %}
+    <script type="text/javascript">
+    window.collection = {{ collection | json }};
+    window.collection_desc = "{{collection.description | strip_newlines | escape }}";
+    
+    {% if current_tags %}
+        window.current_tags = '{{ current_tags | join: ','}}';
+      {% endif %}
+    </script>
+    {% section 'collection-template-test' %}
+{%- endcase -%}

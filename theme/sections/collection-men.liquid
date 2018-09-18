@@ -1,0 +1,195 @@
+<div class="sog-container-wide">
+    <header>
+      <h1 class="collection-lp__title">{{ collection.title }}</h1>
+    </header>
+  {%- for block in section.blocks -%}
+    <div class="row collection-lp__row">
+      {%- if block.type == 'one_column' -%}
+        <div class="col-xs-12 collection-lp__col">
+          <a href="{{ block.settings.url }}" class="collection-lp__link">
+            <picture>
+              <source srcset="{{ block.settings.image | img_url: '1680x' }} 1x, {{ block.settings.image | img_url: '1860x', scale: 2 }} 2x" media="(min-width:1600px)">
+              <source srcset="{{ block.settings.image | img_url: '1380x' }} 1x, {{ block.settings.image | img_url: '1380x', scale: 2 }} 2x" media="(min-width:1280px)">
+              <source srcset="{{ block.settings.image | img_url: '964x' }} 1x, {{ block.settings.image | img_url: '964x', scale: 2 }} 2x" media="(min-width:667px)">
+              <img
+                src="{{ block.settings.image | img_url: '414x' }}"
+                srcset="{{ block.settings.image | img_url: '414x' }} 1x, {{ block.settings.image | img_url: '414x', scale: 2 }} 2x"
+                alt=""
+                class="img-responsive">
+            </picture>
+          </a>
+        </div>
+
+      {%- elsif block.type == 'two_columns' -%}
+        <div class="col-xs-6 collection-lp__col">
+          <a href="{{ block.settings.url1 }}" class="collection-lp__link">
+            <picture>
+              <source srcset="{{ block.settings.image1 | img_url: '915x' }} 1x, {{ block.settings.image1 | img_url: '915x', scale: 2 }} 2x" media="(min-width:1600px)">
+              <source srcset="{{ block.settings.image1 | img_url: '675x' }} 1x, {{ block.settings.image1 | img_url: '675x', scale: 2 }} 2x" media="(min-width:1280px)">
+              <source srcset="{{ block.settings.image1 | img_url: '467x' }} 1x, {{ block.settings.image1 | img_url: '467x', scale: 2 }} 2x" media="(min-width:667px)">
+              <img
+                src="{{ block.settings.image1 | img_url: '414x' }}"
+                srcset="{{ block.settings.image1 | img_url: '414x' }} 1x, {{ block.settings.image1 | img_url: '414x', scale: 2 }} 2x"
+                alt=""
+                class="img-responsive">
+            </picture>
+          </a>
+        </div>
+        <div class="col-xs-6 collection-lp__col">
+          <a href="{{ block.settings.url2 }}" class="collection-lp__link">
+            <picture>
+              <source srcset="{{ block.settings.image2 | img_url: '915x' }} 1x, {{ block.settings.image2 | img_url: '915x', scale: 2 }} 2x" media="(min-width:1600px)">
+              <source srcset="{{ block.settings.image2 | img_url: '675x' }} 1x, {{ block.settings.image2 | img_url: '675x', scale: 2 }} 2x" media="(min-width:1280px)">
+              <source srcset="{{ block.settings.image2 | img_url: '467x' }} 1x, {{ block.settings.image2 | img_url: '467x', scale: 2 }} 2x" media="(min-width:667px)">
+              <img
+                src="{{ block.settings.image2 | img_url: '414x' }}"
+                srcset="{{ block.settings.image2 | img_url: '414x' }} 1x, {{ block.settings.image2 | img_url: '414x', scale: 2 }} 2x"
+                alt=""
+                class="img-responsive">
+            </picture>
+          </a>
+        </div>
+
+      {%- elsif block.type == 'three_columns' -%}
+        <div class="col-xs-4 collection-lp__col">
+          <a href="{{ block.settings.url1 }}" class="collection-lp__link">
+            <picture>
+              <source srcset="{{ block.settings.image1 | img_url: '600x' }} 1x, {{ block.settings.image1 | img_url: '600x', scale: 2 }} 2x" media="(min-width:1600px)">
+              <source srcset="{{ block.settings.image1 | img_url: '440x' }} 1x, {{ block.settings.image1 | img_url: '440x', scale: 2 }} 2x" media="(min-width:1280px)">
+              <source srcset="{{ block.settings.image1 | img_url: '302x' }} 1x, {{ block.settings.image1 | img_url: '302x', scale: 2 }} 2x" media="(min-width:667px)">
+              <img
+                src="{{ block.settings.image1 | img_url: '414x' }}"
+                srcset="{{ block.settings.image1 | img_url: '414x' }} 1x, {{ block.settings.image1 | img_url: '414x', scale: 2 }} 2x"
+                alt=""
+                class="img-responsive">
+            </picture>
+          </a>
+        </div>
+        <div class="col-xs-4 collection-lp__col">
+          <a href="{{ block.settings.url2 }}" class="collection-lp__link">
+            <picture>
+              <source srcset="{{ block.settings.image2 | img_url: '600x' }} 1x, {{ block.settings.image2 | img_url: '600x', scale: 2 }} 2x" media="(min-width:1600px)">
+              <source srcset="{{ block.settings.image2 | img_url: '440x' }} 1x, {{ block.settings.image2 | img_url: '440x', scale: 2 }} 2x" media="(min-width:1280px)">
+              <source srcset="{{ block.settings.image2 | img_url: '302x' }} 1x, {{ block.settings.image2 | img_url: '302x', scale: 2 }} 2x" media="(min-width:667px)">
+              <img
+                src="{{ block.settings.image2 | img_url: '414x' }}"
+                srcset="{{ block.settings.image2 | img_url: '414x' }} 1x, {{ block.settings.image2 | img_url: '414x', scale: 2 }} 2x"
+                alt=""
+                class="img-responsive">
+            </picture>
+          </a>
+        </div>
+        <div class="col-xs-4 collection-lp__col">
+          <a href="{{ block.settings.url2 }}" class="collection-lp__link">
+            <picture>
+              <source srcset="{{ block.settings.image3 | img_url: '600x' }} 1x, {{ block.settings.image3 | img_url: '600x', scale: 2 }} 2x" media="(min-width:1600px)">
+              <source srcset="{{ block.settings.image3 | img_url: '440x' }} 1x, {{ block.settings.image3 | img_url: '440x', scale: 2 }} 2x" media="(min-width:1280px)">
+              <source srcset="{{ block.settings.image3 | img_url: '302x' }} 1x, {{ block.settings.image3 | img_url: '302x', scale: 2 }} 2x" media="(min-width:667px)">
+              <img
+                src="{{ block.settings.image3 | img_url: '414x' }}"
+                srcset="{{ block.settings.image3 | img_url: '414x' }} 1x, {{ block.settings.image3 | img_url: '414x', scale: 2 }} 2x"
+                alt=""
+                class="img-responsive">
+            </picture>
+          </a>
+        </div>
+
+      {%- endif -%}
+    </div>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+  {
+    "name": "Collection LP - Men",
+    "class": "collection-lp collection-lp--men",
+    "settings": [
+    ],
+    "blocks": [
+      {
+        "type": "one_column",
+        "name": "One column",
+        "settings": [
+          {
+            "id": "image",
+            "type": "image_picker",
+            "label": "Image",
+            "info": "Width should be at least 3780px"
+          },
+          {
+            "id": "url",
+            "type": "url",
+            "label": "Link"
+          }
+        ]
+      },
+      {
+        "type": "two_columns",
+        "name": "Two columns",
+        "settings": [
+          {
+            "id": "image1",
+            "type": "image_picker",
+            "label": "First image",
+            "info": "Width should be at least 1860px"
+          },
+          {
+            "id": "url1",
+            "type": "url",
+            "label": "First link"
+          },
+          {
+            "id": "image2",
+            "type": "image_picker",
+            "label": "Second image",
+            "info": "Width should be at least 1860px"
+          },
+          {
+            "id": "url2",
+            "type": "url",
+            "label": "Second link"
+          }
+        ]
+      },
+      {
+        "type": "three_columns",
+        "name": "Three columns",
+        "settings": [
+          {
+            "id": "image1",
+            "type": "image_picker",
+            "label": "First image",
+            "info": "Width should be at least 1220px"
+          },
+          {
+            "id": "url1",
+            "type": "url",
+            "label": "First link"
+          },
+          {
+            "id": "image2",
+            "type": "image_picker",
+            "label": "Second image",
+            "info": "Width should be at least 1220px"
+          },
+          {
+            "id": "url2",
+            "type": "url",
+            "label": "Second link"
+          },
+          {
+            "id": "image3",
+            "type": "image_picker",
+            "label": "Third image",
+            "info": "Width should be at least 1220px"
+          },
+          {
+            "id": "url3",
+            "type": "url",
+            "label": "Third link"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
