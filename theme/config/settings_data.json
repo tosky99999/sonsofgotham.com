@@ -3966,21 +3966,21 @@
           "1489285116594-1": {
             "type": "collection",
             "settings": {
-              "feature_collection": "gender-age-mens",
+              "feature_collection": "men",
               "image": "shopify:\/\/shop_images\/sonsofgotham-home-page-category_MENS_cb760925-5b05-44d6-aeb5-48540bcd0175.jpg"
             }
           },
           "1489285116594-2": {
             "type": "collection",
             "settings": {
-              "feature_collection": "gender-age-womens",
+              "feature_collection": "women",
               "image": "shopify:\/\/shop_images\/sonsofgotham-home-page-category_WOMENS_9de98ccf-0f5e-4499-b7a9-26f7c26b134f.jpg"
             }
           },
           "1489285780844": {
             "type": "collection",
             "settings": {
-              "feature_collection": "gender-age-kids",
+              "feature_collection": "kids",
               "image": "shopify:\/\/shop_images\/sonsofgotham-home-page-category_KIDS_3b3d1b53-6bb8-40f3-ada5-47cffd9af3e8.jpg"
             }
           },
@@ -4561,6 +4561,146 @@
         "settings": {
           "title": "Popular Brands"
         }
+      },
+      "collection-men": {
+        "type": "collection-men",
+        "blocks": {
+          "1537218491735": {
+            "type": "one_column",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/mens-tshirt_3780px.jpg",
+              "url": "\/collections\/mens-t-shirts\/Men"
+            }
+          },
+          "1537218959664": {
+            "type": "two_columns",
+            "settings": {
+              "image1": "shopify:\/\/shop_images\/v-neck_1860px.jpg",
+              "url1": "\/collections\/mens-v-neck-t-shirts",
+              "image2": "shopify:\/\/shop_images\/tanks_1860px.jpg",
+              "url2": "\/collections\/mens-tank-tops\/Men"
+            }
+          },
+          "1537219566474": {
+            "type": "one_column",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/all-over-prints_3780px.jpg",
+              "url": "\/collections\/style-adult-all-over-print-100-poly-t-shirt\/Men"
+            }
+          },
+          "1537219847415": {
+            "type": "three_columns",
+            "settings": {
+              "image1": "shopify:\/\/shop_images\/hoodies_1220px.jpg",
+              "url1": "\/collections\/hoodies\/Men",
+              "image2": "shopify:\/\/shop_images\/longsleeves_1220px.jpg",
+              "url2": "\/collections\/long-sleeves",
+              "image3": "shopify:\/\/shop_images\/sweatshirt_1220px.jpg",
+              "url3": "\/collections\/style-sweatshirt"
+            }
+          },
+          "1537219914503": {
+            "type": "one_column",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/costumes_3780px.jpg",
+              "url": "shopify:\/\/collections\/costumes"
+            }
+          }
+        },
+        "block_order": [
+          "1537218491735",
+          "1537218959664",
+          "1537219566474",
+          "1537219847415",
+          "1537219914503"
+        ],
+        "settings": {}
+      },
+      "collection-women": {
+        "type": "collection-women",
+        "blocks": {
+          "1537221295065": {
+            "type": "one_column",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/womens-tshirt_3780px.jpg",
+              "url": "\/collections\/mens-t-shirts\/Women"
+            }
+          },
+          "1537221360211": {
+            "type": "two_columns",
+            "settings": {
+              "image1": "shopify:\/\/shop_images\/v-neck_1860px_d0ac1211-8867-43b8-97a6-bf918da1a4f9.jpg",
+              "url1": "\/collections\/womens-v-neck-t-shirts",
+              "image2": "shopify:\/\/shop_images\/tanks_1860px_29eda182-1829-42cc-9445-b17481d43f29.jpg",
+              "url2": "\/collections\/mens-tank-tops\/Women"
+            }
+          },
+          "1537221425595": {
+            "type": "one_column",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/all-over-prints_3780px_14ed93e6-57fc-4b09-a824-4334d622f2ef.jpg",
+              "url": "\/collections\/style-adult-all-over-print-100-poly-t-shirt\/Women"
+            }
+          },
+          "1537221502933": {
+            "type": "two_columns",
+            "settings": {
+              "image1": "shopify:\/\/shop_images\/hoodies_1860px.jpg",
+              "url1": "\/collections\/hoodies\/Women",
+              "image2": "shopify:\/\/shop_images\/costumes_1860px.jpg",
+              "url2": "shopify:\/\/collections\/costumes"
+            }
+          }
+        },
+        "block_order": [
+          "1537221295065",
+          "1537221360211",
+          "1537221425595",
+          "1537221502933"
+        ],
+        "settings": {}
+      },
+      "collection-kids": {
+        "type": "collection-kids",
+        "blocks": {
+          "1537224670916": {
+            "type": "one_column",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/babies_3780px.jpg",
+              "url": "\/collections\/baby-bodysuits"
+            }
+          },
+          "1537224778051": {
+            "type": "one_column",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/toddler_3780px.jpg",
+              "url": "\/collections\/toddlers"
+            }
+          },
+          "1537224807222": {
+            "type": "two_columns",
+            "settings": {
+              "image1": "shopify:\/\/shop_images\/kids_1860px.jpg",
+              "url1": "\/collections\/kids-tees-ages-4-7",
+              "image2": "shopify:\/\/shop_images\/youth_1860px.jpg",
+              "url2": "\/collections\/youth"
+            }
+          },
+          "1537224878814": {
+            "type": "one_column",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/costume_3780px.jpg",
+              "url": "shopify:\/\/collections\/costumes"
+            }
+          }
+        },
+        "block_order": [
+          "1537224670916",
+          "1537224778051",
+          "1537224807222",
+          "1537224878814"
+        ],
+        "settings": {}
       }
     },
     "content_for_index": [
