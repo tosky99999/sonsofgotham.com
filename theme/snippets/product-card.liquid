@@ -51,14 +51,13 @@
       </div>
     </a>
   </div>
-{%- endif -%}
 
 {%- comment -%}
   Include as a template partial.
-  ------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------
   Required variable: `product`
 {%- endcomment -%}
-{%- if product != blank -%}
+{%- elsif product != blank -%}
   <div class="product-grid__col">
     <a href="{{ product.url | within: collection }}" class="product-grid__col__content product-card {% if product.images.size > 1%}product-card--hoverable{% endif %}">
       {%- for image in product.images limit:2 -%}
