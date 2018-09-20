@@ -2640,7 +2640,7 @@ var productPage = {
                         let handle_color = value.toLowerCase().split(' ').join('_');
                         template += '<label for="swatch-'
                          + option_index + '-' + value.replace(/\W+/g, "-") + '-' + product.id
-                         + '" style="background-color: ' + (typeof color_list[handle_color] != 'undefined' ? color_list[handle_color] : (value == 'Multi Color' || value == 'Multi-Color'? 'red;background: -webkit-linear-gradient(left, orange , yellow, green, cyan, blue, violet);background: -o-linear-gradient(right, orange, yellow, green, cyan, blue, violet);background: -moz-linear-gradient(right, orange, yellow, green, cyan, blue, violet);background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);': option_color))
+                         + '" style="background-color: ' + (typeof color_list[handle_color] != 'undefined' ? color_list[handle_color] : (value.toLowerCase().replace(/[-\W]/g, '') == 'multicolor' ? 'red;background: -webkit-linear-gradient(left, orange , yellow, green, cyan, blue, violet);background: -o-linear-gradient(right, orange, yellow, green, cyan, blue, violet);background: -moz-linear-gradient(right, orange, yellow, green, cyan, blue, violet);background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);': option_color))
                          + '"><span class="crossed-out"></span></label>';
                       } else {
                         template += '<label for="swatch-'
