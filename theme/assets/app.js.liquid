@@ -2633,7 +2633,7 @@ var productPage = {
                      + '" class="swatch-element ' + color + value.replace(/\W+/g, "-") + '-swatch ' + as + '">';
 
                       if (is_color) {
-                        template += '<div class="tooltip">' + value + '</div>';
+                        template += '<div class="tooltip">' + value.replace(/-/g, ' ') + '</div>';
                       }
                       if (is_color) {
                         let option_color = value.split(' ')[1] ? value.split(' ')[1] : value.split(' ')[0];
